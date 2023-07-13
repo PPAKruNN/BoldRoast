@@ -9,7 +9,7 @@ export default function App() {
     <PagesContainer>  
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/cadastro" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
