@@ -14,7 +14,29 @@ export default function HomePage() {
                     </div>      
             
                     <img src={CoffeMock}/>
-                </PresentationSection>            
+                </PresentationSection>   
+
+                <Banners>
+                    <div>
+                        <h1>FRETE GRÁTIS PARA TODO BRASIL</h1>
+                        <p>Nos pedidos acima de R$149</p>
+                    </div>
+
+                    <div>
+                        <h1>CAFÉ PREMIUM DE ALTA QUALIDADE</h1>
+                        <p>Grãos importados com selo</p>
+                    </div>
+
+                    <div>
+                        <h1>SATISFAÇÃO GARANTIDA</h1>
+                        <p>Ou devolvemos seu dinheiro</p>
+                    </div>
+
+                    <div>
+                        <h1>PAGUE DO SEU JEITO</h1>
+                        <p>Parcele em até 12x</p>
+                    </div>
+                </Banners>         
             </div>
         </PageSC>
     )
@@ -68,6 +90,8 @@ const PresentationSection = styled.div`
     padding: 50px 0px;
     height: 480px;
 
+    gap: 27px;
+
     div:first-child {
         display: flex;
         flex-direction: column;
@@ -97,5 +121,40 @@ const PresentationSection = styled.div`
     img {
         width: 55%;
         border-radius: 32px;
+    }
+`
+
+const Banners = styled.div`
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    div {
+        padding: 30px 20px;
+        width: 20%;
+        border-radius: 25px;
+
+        display: flex;
+        flex-direction: column;
+        
+        gap: 12px;
+
+        h1 {
+            font-size: 22px;
+        }
+        
+        p {
+            font-size: 16px;
+        } 
+    }
+
+    div:nth-child(odd) {
+        background-color: #D9D9D9;
+    }
+
+    div:nth-child(even) {
+        background-color: #CBE2E8;
     }
 `
