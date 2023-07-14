@@ -21,13 +21,9 @@ export default function FixedRodape() {
 const Rodape = styled.div`
 height: 149px;
 width: 100%;
-position: fixed;
 display: flex;
 justify-content: center;
-z-index: 2;
 background-color: #000000;
-bottom: 0px;
-left: 0px;
 `
 const RodapeContainer = styled.div`
     width: 1100px;
