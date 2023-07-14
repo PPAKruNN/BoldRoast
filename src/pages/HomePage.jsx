@@ -126,6 +126,43 @@ export default function HomePage() {
                         </div>
                     </div>
                 </ProductSliders>
+        
+                <CommentsSection>
+                    <div>
+                        <h1>Quem compra se apaixona</h1> 
+                        <span>
+                            <img onClick={alert} src={LeftArrow}/>
+                            <img onClick={alert} src={RightArrow}/>
+                        </span>
+                    </div>
+
+                    <Comments>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <span>
+                                <img src={CoffeBeans}/>
+                                <p>Karinha Karona</p>
+                            </span>
+                        </div>
+
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <span>
+                                <img src={CoffeBeans}/>
+                                <p>Karinha Karona</p>
+                            </span>
+                        </div>
+
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <span>
+                                <img src={CoffeBeans}/>
+                                <p>Karinha Karona</p>
+                            </span>
+                        </div>
+                    </Comments>
+                </CommentsSection>
+
             </div>
         </PageSC>
     )
@@ -369,6 +406,77 @@ const BannersCategorias = styled.div`
             }
             p {
                 font-size: 16px;
+            }
+        }
+    }
+
+`
+
+const CommentsSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    gap: 65px;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        span {
+            display: flex;
+            gap: 16px
+            
+        }
+        
+        span > img {
+            cursor: pointer;
+        }
+    }
+`
+
+const Comments = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    gap: 27px;
+    
+    & > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        width: 33%;
+        
+        gap: 16px;
+        padding: 24px 30px;
+
+        border-radius: 32px;
+        background-color: #F2F5F7;
+
+        p {
+            color: #A1AEB7;
+            font-size: 22px;
+            font-weight: 300;
+            line-height: 130%; /* 28.6px */
+        }
+
+        span {
+            width: max-content;
+            img {
+                width: 45px;
+                height: 45px;
+                margin-right: 16px;
+                border-radius: 32px;
+            }
+            
+            p {
+                font-size: 18px;
+                line-height: normal;
+                font-weight: 400;
             }
         }
     }
