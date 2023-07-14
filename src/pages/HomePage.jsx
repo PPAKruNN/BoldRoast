@@ -84,7 +84,8 @@ const PageSC = styled.div`
     background-color: #ffffff;
 
     align-items: center;
-
+    margin-top: 142px;
+    margin-bottom: 142px;
     & > div {
         max-width: 1100px;
     }
@@ -124,7 +125,7 @@ const PresentationSection = styled.div`
     justify-content: space-between;
 
     padding: 50px 0px;
-    height: 480px;
+    height: 580px;
 
     gap: 27px;
 
@@ -134,7 +135,7 @@ const PresentationSection = styled.div`
         align-items: flex-start;
         justify-content: center;
 
-        width: 35%;
+        width: 45%;
 
         border-radius: 45px;
         padding: 80px 40px 110px 40px;
@@ -169,7 +170,7 @@ const Banners = styled.div`
 
     div {
         padding: 30px 20px;
-        width: 20%;
+        width: 25%;
         border-radius: 25px;
 
         display: flex;
@@ -223,8 +224,6 @@ const ProductSliders = styled.div`
     & > .right {
         right: -45px;
     }
-
-
 
     & > div {
 
