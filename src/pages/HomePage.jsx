@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import CoffeMock from "../images/CoffeMock.png"
+import CoffeBeans from "../images/cafe-graos.png"
+import CoffeDust from "../images/cafe-moido.png"
 import LeftArrow from "../images/icon-arrow-left.svg"
 import RightArrow from "../images/icon-arrow-right.svg"
 
@@ -73,6 +75,25 @@ export default function HomePage() {
                         </div>
                     </div>
                 </ProductSliders>
+        
+                <BannersCategorias>
+                    <div onClick={alert}>
+                        <div>
+                            <h1>COMPRAR CAFÉ EM GRÃOS</h1> 
+                            <p>Separados por torra, para moer em casa como preferir</p>
+                        </div>
+                        <img src={CoffeBeans}/>
+                    </div>
+                    <div onClick={alert}>
+                        <div>
+                            <h1>COMPRAR CAFÉ MOÍDO</h1> 
+                            <p>Escolha a moagem ideal para o seu método favorito</p>
+                        </div>                        
+                        <img src={CoffeDust}/>
+                    </div>
+                </BannersCategorias>
+        
+
             </div>
         </PageSC>
     )
@@ -83,6 +104,7 @@ const PageSC = styled.div`
     flex-direction: column;
     background-color: #ffffff;
 
+    margin: 60px 0px;
     align-items: center;
     & > div {
         max-width: 1100px;
@@ -196,7 +218,6 @@ const Banners = styled.div`
 
 const ProductSliders = styled.div`
     position: relative;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -283,5 +304,41 @@ const ProductSliders = styled.div`
             
     }
 
+
+`
+
+const BannersCategorias = styled.div`
+    display: flex;
+    justify-content: space-around;
+
+    gap: 27px;
+
+    & > div {
+        width: 50%;
+        display: flex;
+        background-color: #D9D9D9;
+        border-radius: 16px;
+        overflow: hidden;
+
+        cursor: pointer;
+
+        div {
+            box-sizing: content-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding :0px 35px;
+            width: 50%;
+
+            h1 {
+                font-size: 26px;
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+    }
 
 `
