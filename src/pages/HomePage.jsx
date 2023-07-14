@@ -92,8 +92,40 @@ export default function HomePage() {
                         <img src={CoffeDust}/>
                     </div>
                 </BannersCategorias>
-        
 
+                <ProductSliders>
+                    <h1>Mais Vendidos</h1>
+
+                    <img className="left" src={LeftArrow}/>
+                    <img className="right" src={RightArrow}/>
+
+                    <div> {/* Slider */}
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                    </div>
+                </ProductSliders>
             </div>
         </PageSC>
     )
