@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: "Ubuntu", sans-serif;
         font-style: normal;
         font-weight: 400;
+        box-sizing: border-box;
     }
     
     button {
