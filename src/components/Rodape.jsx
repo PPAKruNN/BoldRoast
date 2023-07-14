@@ -31,8 +31,8 @@ left: 0px;
     h1{
         color: #A1AEB7;
         font-weight: 400;
-        font-size: 14px
-        line-height: 21px
+        font-size: 14px;
+        line-height: 21px;
     }
 `
 

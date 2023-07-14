@@ -11,7 +11,6 @@ export default function App() {
   return (
     <PagesContainer> 
       <FixedMenu />
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage/>} />
