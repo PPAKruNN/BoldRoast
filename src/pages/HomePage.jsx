@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import CoffeMock from "../images/CoffeMock.png"
+import CoffeBeans from "../images/cafe-graos.png"
+import CoffeDust from "../images/cafe-moido.png"
 import LeftArrow from "../images/icon-arrow-left.svg"
 import RightArrow from "../images/icon-arrow-right.svg"
 
@@ -73,6 +75,94 @@ export default function HomePage() {
                         </div>
                     </div>
                 </ProductSliders>
+        
+                <BannersCategorias>
+                    <div onClick={alert}>
+                        <div>
+                            <h1>COMPRAR CAFÉ EM GRÃOS</h1> 
+                            <p>Separados por torra, para moer em casa como preferir</p>
+                        </div>
+                        <img src={CoffeBeans}/>
+                    </div>
+                    <div onClick={alert}>
+                        <div>
+                            <h1>COMPRAR CAFÉ MOÍDO</h1> 
+                            <p>Escolha a moagem ideal para o seu método favorito</p>
+                        </div>                        
+                        <img src={CoffeDust}/>
+                    </div>
+                </BannersCategorias>
+
+                <ProductSliders>
+                    <h1>Mais Vendidos</h1>
+
+                    <img className="left" src={LeftArrow}/>
+                    <img className="right" src={RightArrow}/>
+
+                    <div> {/* Slider */}
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                    </div>
+                </ProductSliders>
+        
+                <CommentsSection>
+                    <div>
+                        <h1>Quem compra se apaixona</h1> 
+                        <span>
+                            <img onClick={alert} src={LeftArrow}/>
+                            <img onClick={alert} src={RightArrow}/>
+                        </span>
+                    </div>
+
+                    <Comments>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <span>
+                                <img src={CoffeBeans}/>
+                                <p>Karinha Karona</p>
+                            </span>
+                        </div>
+
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <span>
+                                <img src={CoffeBeans}/>
+                                <p>Karinha Karona</p>
+                            </span>
+                        </div>
+
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <span>
+                                <img src={CoffeBeans}/>
+                                <p>Karinha Karona</p>
+                            </span>
+                        </div>
+                    </Comments>
+                </CommentsSection>
+
             </div>
         </PageSC>
     )
@@ -83,6 +173,7 @@ const PageSC = styled.div`
     flex-direction: column;
     background-color: #ffffff;
 
+    margin: 60px 0px;
     align-items: center;
     & > div {
         max-width: 1100px;
@@ -196,7 +287,6 @@ const Banners = styled.div`
 
 const ProductSliders = styled.div`
     position: relative;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -283,5 +373,112 @@ const ProductSliders = styled.div`
             
     }
 
+
+`
+
+const BannersCategorias = styled.div`
+    display: flex;
+    justify-content: space-around;
+
+    gap: 27px;
+
+    & > div {
+        width: 50%;
+        display: flex;
+        background-color: #D9D9D9;
+        border-radius: 16px;
+        overflow: hidden;
+
+        cursor: pointer;
+
+        div {
+            box-sizing: content-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding :0px 35px;
+            width: 50%;
+
+            h1 {
+                font-size: 26px;
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+    }
+
+`
+
+const CommentsSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    gap: 65px;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        span {
+            display: flex;
+            gap: 16px
+            
+        }
+        
+        span > img {
+            cursor: pointer;
+        }
+    }
+`
+
+const Comments = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    gap: 27px;
+    
+    & > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        width: 33%;
+        
+        gap: 16px;
+        padding: 24px 30px;
+
+        border-radius: 32px;
+        background-color: #F2F5F7;
+
+        p {
+            color: #A1AEB7;
+            font-size: 22px;
+            font-weight: 300;
+            line-height: 130%; /* 28.6px */
+        }
+
+        span {
+            width: max-content;
+            img {
+                width: 45px;
+                height: 45px;
+                margin-right: 16px;
+                border-radius: 32px;
+            }
+            
+            p {
+                font-size: 18px;
+                line-height: normal;
+                font-weight: 400;
+            }
+        }
+    }
 
 `
