@@ -37,6 +37,37 @@ export default function HomePage() {
                         <p>Parcele em até 12x</p>
                     </div>
                 </Banners>         
+
+                <ProductSliders>
+                    <h1>Lancamentos</h1>
+
+                    <div> {/* Slider */}
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                        <div>
+                            <img src={CoffeMock}/>
+                            <h2>Café 001 Notas de Caramelo</h2>
+                            <p>R$35,00</p>
+                            <button>ADICIONAR AO CARRINHO</button>
+                        </div>
+                    </div>
+                </ProductSliders>
             </div>
         </PageSC>
     )
@@ -157,4 +188,78 @@ const Banners = styled.div`
     div:nth-child(even) {
         background-color: #CBE2E8;
     }
+`
+
+const ProductSliders = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 80px 0px;
+    gap: 24px;
+
+    width: 100%;
+
+    & > div {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        height: 450px;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            
+            gap: 10px;
+            width: 22.5%;
+            
+            img {
+                width: 100%;
+                min-height: 70%;
+                border-radius: 16px;
+
+                object-fit: cover;    /* Mock Specific */
+                object-position: 45%; /* Mock Specific */
+                
+            }
+            
+            p, h2, button{
+                text-align: center;
+                font-weight: 500;
+            }
+            
+            h2 {
+                color: #0D0D0D;
+                font-size: 20px;
+            }
+
+            p {
+                color: #0B1424;
+                font-size: 18px;
+            }
+            
+            button {
+                background-color: #000000;
+                border-radius: 13px;
+                padding: 8px ;
+
+                width: 80%;
+
+                color: #FFF;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+
+
+        }
+            
+    }
+
+
 `
