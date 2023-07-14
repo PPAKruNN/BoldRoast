@@ -84,8 +84,6 @@ const PageSC = styled.div`
     background-color: #ffffff;
 
     align-items: center;
-    margin-top: 142px;
-    margin-bottom: 142px;
     & > div {
         max-width: 1100px;
     }
