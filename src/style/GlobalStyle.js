@@ -4,6 +4,7 @@ const GlobalStyle = createGlobalStyle`
     * {
         font-style: normal;
         font-weight: 400;
+        box-sizing: border-box;
     }
     button {
         outline: none;
