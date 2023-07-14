@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import CoffeMock from "../images/CoffeMock.png"
+import LeftArrow from "../../public/images/icon-arrow-left.svg"
+import RightArrow from "../../public/images/icon-arrow-right.svg"
 
 export default function HomePage() {
 
@@ -40,6 +42,9 @@ export default function HomePage() {
 
                 <ProductSliders>
                     <h1>Lancamentos</h1>
+
+                    <img className="left" src={LeftArrow}/>
+                    <img className="right" src={RightArrow}/>
 
                     <div> {/* Slider */}
                         <div>
@@ -191,6 +196,8 @@ const Banners = styled.div`
 `
 
 const ProductSliders = styled.div`
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -200,6 +207,24 @@ const ProductSliders = styled.div`
     gap: 24px;
 
     width: 100%;
+
+
+    & > img {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        top: 50%;
+    }
+
+    & > .left {
+        left: -45px;
+    }
+
+    & > .right {
+        right: -45px;
+    }
+
+
 
     & > div {
 
