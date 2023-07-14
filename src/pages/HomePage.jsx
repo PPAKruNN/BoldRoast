@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CoffeMock from "../images/CoffeMock.png"
-import LeftArrow from "../../public/images/icon-arrow-left.svg"
-import RightArrow from "../../public/images/icon-arrow-right.svg"
+import LeftArrow from "../images/icon-arrow-left.svg"
+import RightArrow from "../images/icon-arrow-right.svg"
 
 export default function HomePage() {
 
