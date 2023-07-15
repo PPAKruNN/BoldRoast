@@ -19,7 +19,7 @@ export default function FixedRodape() {
 }
 
 const Rodape = styled.div`
-height: 100vh-150px;
+height: 150px;
 width: 100%;
 display: flex;
 justify-content: center;
