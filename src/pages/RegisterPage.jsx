@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useForm from "../hooks/useForm";
 import AuthContext from "../context/AuthContext";
+import useForm from "../services/useForm";
 import axios from "axios";
 
 export default function RegisterPage() {
