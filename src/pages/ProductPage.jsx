@@ -70,12 +70,12 @@ const ProductPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: calc(100vh - 50px);
-    margin-top: 150px;
+    margin-top: 50px;
 `
 
 const ProductContainer = styled.div`
     background-color: #fff;
-    width: calc()(100vw - 100px);
+    width: calc(100vw - 100px);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -98,11 +98,13 @@ const ProductDescription = styled.div`
     width: 555px;
     h2 {
         color: #1e1e1e;
+        font-family: "Ubuntu", sans-serif;
         font-size: 20px;
         margin-top: 50px;
     }
     h3 {
         color: #A1AEB7;
+        font-family: "Ubuntu", sans-serif;
         font-size: 17px;
         margin-top: 20px;
     }
@@ -116,6 +118,7 @@ const ProductName = styled.div`
     margin-top: 10px;
     h1 {
         color: #0d0d0d;
+        font-family: "Ubuntu", sans-serif;
         font-size: 40px;
         font-weight: bold;
     }
@@ -149,6 +152,7 @@ const Variations = styled.div`
     }
     p {
         color: #1e1e1e;
+        font-family: "Ubuntu", sans-serif;
         font-size: 20px;
     }
    
