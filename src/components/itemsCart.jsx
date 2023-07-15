@@ -39,7 +39,7 @@ gap: 10px;
 h1{
     font-weight: 500;
     font-size: 24px;
-    line height: 31px;
+    line-height: 31px;
     color: #013743;
 }
 
@@ -50,7 +50,7 @@ button{
     color: #FFFFFF;
     font-weight: 400;
     font-size: 18px;
-    line height: 23px;
+    line-height: 23px;
 
     &:hover{
         background-color: #00fa9a;
@@ -72,7 +72,7 @@ width: 182px;
 h2{
     font-weight: 500;
     font-size: 22px;
-    line height: 25px;
+    line-height: 25px;
     color: #1E1E1E;
 }
 

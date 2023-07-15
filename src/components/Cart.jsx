@@ -27,7 +27,7 @@ align-items: center;
 p{
     font-weight: 400;
     font-size: 22px;
-    line height: 25px;
+    line-height: 25px;
 }
 
 button{
@@ -37,7 +37,7 @@ button{
     color: #FFFFFF;
     font-weight: 400;
     font-size: 18px;
-    line height: 23px;
+    line-height: 23px;
 
     &:hover{
         background-color: #00fa9a;
