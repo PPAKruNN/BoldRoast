@@ -98,7 +98,7 @@ const ProductDescription = styled.div`
     width: 555px;
     h2 {
         color: #1e1e1e;
-        font-family: "Poppins", sans-serif;
+        font-family: "Ubuntu", sans-serif;
         font-size: 20px;
         margin-top: 50px;
     }
@@ -152,7 +152,7 @@ const Variations = styled.div`
     }
     p {
         color: #1e1e1e;
-        font-family: "Poppins", sans-serif;
+        font-family: "Ubuntu", sans-serif;
         font-size: 20px;
     }
    
