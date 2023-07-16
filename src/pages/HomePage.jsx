@@ -5,10 +5,13 @@ import CoffeDust from "../images/cafe-moido.png"
 import LeftArrow from "../images/icon-arrow-left.svg"
 import RightArrow from "../images/icon-arrow-right.svg"
 import Product from "../components/Product";
+import FixedMenu from "../components/Menu";
 
 export default function HomePage() {
 
     return (
+        <>
+        <FixedMenu />
         <PageSC>
             <div>
                 <PresentationSection>
@@ -126,6 +129,7 @@ export default function HomePage() {
 
             </div>
         </PageSC>
+        </>
     )
 }
 

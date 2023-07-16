@@ -7,6 +7,7 @@ import FixedMenu from "./components/Menu"
 import FixedRodape from "./components/Rodape"
 import { useState } from "react"
 import AuthContext from "./context/AuthContext"
+import CheckoutPage from "./pages/CheckoutPage"
 
 export default function App() {
   
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
       </BrowserRouter>
       </AuthContext.Provider>
