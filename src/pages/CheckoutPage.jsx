@@ -1,26 +1,12 @@
-import { styled } from "styled-components"
-import CoffeMock from "../images/CoffeMock.png"
-import { useState } from "react"
+import { styled } from "styled-components";
+import CoffeMock from "../images/CoffeMock.png";
+import { useState } from "react";
 
 
 export default function CheckoutPage(){
     const [exibirEndereco, setExibirEndereco] = useState(true);
     const [exibirPagamento, setExibirPagamento] = useState (false);
 
-    function formatarCEP(event) {
-        const input = event.target;
-        let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-    
-        if (value.length > 8) {
-          value = value.slice(0, 8); // Limita o CEP a 8 dígitos
-        }
-    
-        if (value.length > 5) {
-          value = `${value.slice(0, 5)}-${value.slice(5)}`; // Adiciona o hífen
-        }
-    
-        input.value = value;
-    }
 
     return(
         <>
@@ -33,7 +19,7 @@ export default function CheckoutPage(){
                 <MainContent>
                     <CheckoutInputs>
                         <Inputs>
-                            <h2>Endereço de entrega</h2>
+                            <h2>Endereço de Entrega</h2>
                             <form>
                                 <label htmlFor="remetente">Nome completo do remetente</label>
                                 <input
@@ -50,7 +36,7 @@ export default function CheckoutPage(){
                                     type="text"
                                     inputMode="numeric"
                                     maxLength="8"
-                                    onInput="formatarCEP(event)"
+                                    onInput={formatarCEP}
                                     required
                                 />
 
@@ -78,7 +64,10 @@ export default function CheckoutPage(){
                                 />
 
                                 <label htmlFor="estado">Estado</label>
-                                <select name="estado">
+                                <select
+                                    name="estado"
+                                    required
+                                >
                                     <option value="">Selecione seu estado</option>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
@@ -108,9 +97,16 @@ export default function CheckoutPage(){
                                     <option value="SE">Sergipe</option>
                                     <option value="TO">Tocantins</option>
                                 </select>
+
+                                <button>SEGUIR PARA PAGAMENTO</button>
                             </form>
-                            <button>SEGUIR PARA PAGAMENTO</button>
                         </Inputs>
+                        <ClosedInputs>
+                            <h2>Endereço de Entrega</h2>
+                        </ClosedInputs>
+                        <ClosedInputs>
+                            <h2>Dados de Pagamento</h2>
+                        </ClosedInputs>
                         <Inputs>
                         <h2>Dados de Pagamento</h2>
                             <form>
@@ -119,10 +115,10 @@ export default function CheckoutPage(){
                                     name="numerocartao"
                                     type="text"
                                     required
-                                    inputmode="numeric"
+                                    inputMode="numeric"
                                     pattern="[0-9\s]{13,19}"
-                                    autocomplete="cc-number"
-                                    maxlength="19"
+                                    autoComplete="cc-number"
+                                    maxLength="19"
                                     placeholder="1234 5678 9123 4567"
                                 />
 
@@ -166,7 +162,6 @@ export default function CheckoutPage(){
                                     <option value="12x">12x</option>
                                 </select>
                             </form>
-                            <button>SEGUIR PARA PAGAMENTO</button>
                         </Inputs>
                     </CheckoutInputs>
                     <ReviewOrder>
@@ -254,7 +249,7 @@ const CheckoutInputs = styled.div`
     flex-direction: column;
 `
 const ReviewOrder = styled.div`
-    width: 30%;
+    width: 35%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -314,6 +309,7 @@ const OrderItem = styled.div`
 `
 const TotalOrder = styled.div`
     align-self: flex-end;
+    width: 100%;
     div{
         display: flex;
         justify-content: space-between;
@@ -330,6 +326,21 @@ const TotalOrder = styled.div`
         font-size: 21px;
         font-weight: 400;
         text-transform: uppercase;
+    }
+`
+const ClosedInputs = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    background: #F2F5F7;
+    padding: 27px 26px;
+    margin-bottom: 25px;
+
+    h2{
+        color: #5A5A5D;
+        font-size: 32px;
+        font-weight: 700;
     }
 `
 const Inputs = styled.div`
