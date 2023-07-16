@@ -4,6 +4,7 @@ import CoffeBeans from "../images/cafe-graos.png"
 import CoffeDust from "../images/cafe-moido.png"
 import LeftArrow from "../images/icon-arrow-left.svg"
 import RightArrow from "../images/icon-arrow-right.svg"
+import Product from "../components/Product";
 
 export default function HomePage() {
 
@@ -43,36 +44,16 @@ export default function HomePage() {
                 </Banners>         
 
                 <ProductSliders>
-                    <h1>Lancamentos</h1>
+                    <h1>Lançamentos</h1>
 
                     <img className="left" src={LeftArrow}/>
                     <img className="right" src={RightArrow}/>
 
                     <div> {/* Slider */}
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
+                        <Product />
+                        <Product />
+                        <Product />
+                        <Product />
                     </div>
                 </ProductSliders>
         
@@ -100,30 +81,10 @@ export default function HomePage() {
                     <img className="right" src={RightArrow}/>
 
                     <div> {/* Slider */}
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
-                        <div>
-                            <img src={CoffeMock}/>
-                            <h2>Café 001 Notas de Caramelo</h2>
-                            <p>R$35,00</p>
-                            <button>ADICIONAR AO CARRINHO</button>
-                        </div>
+                        <Product />
+                        <Product />
+                        <Product />
+                        <Product />
                     </div>
                 </ProductSliders>
         
