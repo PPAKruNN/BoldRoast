@@ -16,9 +16,7 @@ export default function App() {
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
 
   return (
-    <> 
-      <FixedMenu />
-
+    <>
       <AuthContext.Provider value={{ token, setToken, userName, setUserName }}>
       <BrowserRouter>
         <Routes>
