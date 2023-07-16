@@ -32,7 +32,7 @@ export default function CheckoutPage(){
 
                 <MainContent>
                     <CheckoutInputs>
-                        <InputsEndereco>
+                        <Inputs>
                             <h2>Endereço de entrega</h2>
                             <form>
                                 <label htmlFor="remetente">Nome completo do remetente</label>
@@ -48,9 +48,10 @@ export default function CheckoutPage(){
                                     name="cep"
                                     placeholder="Digite o número do seu CEP aqui"
                                     type="text"
-                                    inputmode="numeric"
-                                    maxlength="8"
-                                    oninput="formatarCEP(event)"
+                                    inputMode="numeric"
+                                    maxLength="8"
+                                    onInput="formatarCEP(event)"
+                                    required
                                 />
 
                                 <label htmlFor="endereco">Endereço</label>
@@ -76,7 +77,7 @@ export default function CheckoutPage(){
                                     required
                                 />
 
-                                <label>Estado</label>
+                                <label htmlFor="estado">Estado</label>
                                 <select name="estado">
                                     <option value="">Selecione seu estado</option>
                                     <option value="AC">Acre</option>
@@ -109,34 +110,88 @@ export default function CheckoutPage(){
                                 </select>
                             </form>
                             <button>SEGUIR PARA PAGAMENTO</button>
-                        </InputsEndereco>
-                        <InputsPagamento>
-                        
-                        </InputsPagamento>
-                    </CheckoutInputs>
+                        </Inputs>
+                        <Inputs>
+                        <h2>Dados de Pagamento</h2>
+                            <form>
+                                <label htmlFor="numerocartao">Número do cartão</label>
+                                <input
+                                    name="numerocartao"
+                                    type="text"
+                                    required
+                                    inputmode="numeric"
+                                    pattern="[0-9\s]{13,19}"
+                                    autocomplete="cc-number"
+                                    maxlength="19"
+                                    placeholder="1234 5678 9123 4567"
+                                />
 
+                                <label htmlFor="nomecartao">Nome impresso no cartão</label>
+                                <input
+                                    name="nomecartao"
+                                    placeholder="Digite o nome impresso no cartão"
+                                    type="text"
+                                    required
+                                />
+
+                                <label htmlFor="validade">Validade</label>
+                                <input
+                                    name="validade"
+                                    placeholder="MM/AA"
+                                    type="text"
+                                    required
+                                />
+
+                                <label htmlFor="cvv">Código de segurança (CVV)</label>
+                                <input
+                                    name="cvv"
+                                    placeholder="123"
+                                    type="text"
+                                />
+
+                                <label htmlFor="parcelamento">Parcelamento</label>
+                                <select name="parcelamento">
+                                    <option value="">Escolha o número de parcelas</option>
+                                    <option value="1x">1x</option>
+                                    <option value="2x">2x</option>
+                                    <option value="3x">3x</option>
+                                    <option value="4x">4x</option>
+                                    <option value="5x">5x</option>
+                                    <option value="6x">6x</option>
+                                    <option value="7x">7x</option>
+                                    <option value="8x">8x</option>
+                                    <option value="9x">9x</option>
+                                    <option value="10x">10x</option>
+                                    <option value="11x">11x</option>
+                                    <option value="12x">12x</option>
+                                </select>
+                            </form>
+                            <button>SEGUIR PARA PAGAMENTO</button>
+                        </Inputs>
+                    </CheckoutInputs>
                     <ReviewOrder>
-                        <h3>Revise seu Pedido</h3>
                         <div>
-                            <OrderItem>
-                                <img src={CoffeMock}></img>
-                                <div>
-                                    <h4>Nome do produto vou deixar bem longo aqui</h4>
-                                    <p>Variação: 250g moído</p>
-                                    <p>Quantidade: 1</p>
-                                    <div>R$99,99</div>
-                                </div>
-                            </OrderItem>
-                            <OrderItem>
-                                <img src={CoffeMock}></img>
-                                <div>
-                                    <h4>Nome do produto vou deixar bem longo aqui</h4>
-                                    <p>Variação: 250g moído</p>
-                                    <p>Quantidade: 1</p>
-                                    <div>R$99,99</div>
-                                </div>
-                            </OrderItem>
-                            
+                            <h3>Revise seu Pedido</h3>
+                            <OrderItems>
+                                <OrderItem>
+                                    <img src={CoffeMock}></img>
+                                    <div>
+                                        <h4>Nome do produto vou deixar bem longo aqui</h4>
+                                        <p>Variação: 250g moído</p>
+                                        <p>Quantidade: 1</p>
+                                        <div>R$99,99</div>
+                                    </div>
+                                </OrderItem>
+                                <OrderItem>
+                                    <img src={CoffeMock}></img>
+                                    <div>
+                                        <h4>Nome do produto vou deixar bem longo aqui</h4>
+                                        <p>Variação: 250g moído</p>
+                                        <p>Quantidade: 1</p>
+                                        <div>R$99,99</div>
+                                    </div>
+                                </OrderItem>
+                            </OrderItems>
                         </div>
                         <TotalOrder>
                             <div>
@@ -195,16 +250,27 @@ const MainContent = styled.div`
 `
 const CheckoutInputs = styled.div`
     width: 60%;
+    display: flex;
+    flex-direction: column;
 `
 const ReviewOrder = styled.div`
     width: 30%;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     h3{
         color: #1E1E1E;
         font-size: 28px;
         font-weight: 700;
         padding-bottom: 30px;
     }
+`
+const OrderItems = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
 const OrderItem = styled.div`
     display: flex;
@@ -247,7 +313,7 @@ const OrderItem = styled.div`
     
 `
 const TotalOrder = styled.div`
-    padding: 70px 0px 30px;
+    align-self: flex-end;
     div{
         display: flex;
         justify-content: space-between;
@@ -266,10 +332,11 @@ const TotalOrder = styled.div`
         text-transform: uppercase;
     }
 `
-const InputsEndereco = styled.div`
+const Inputs = styled.div`
     border-radius: 15px;
     background: #F2F5F7;
     padding: 27px 26px;
+    margin-bottom: 25px;
     
     h2{
         color: #5A5A5D;
@@ -317,7 +384,4 @@ const InputsEndereco = styled.div`
         font-weight: 400;
         text-transform: uppercase;
     }
-`
-const InputsPagamento = styled.div`
-    
 `
