@@ -8,6 +8,7 @@ import { useState } from "react"
 import AuthContext from "./context/AuthContext"
 import CheckoutPage from "./pages/CheckoutPage"
 import ShopPage from "./pages/ShopPage"
+import CartContext from "./context/CartContext"
 
 export default function App() {
   
@@ -15,10 +16,14 @@ export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
 
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [notes, setNotes] = useState("");
+
   return (
     <>
-
       <AuthContext.Provider value={{ token, setToken, userName, setUserName }}>
+      <CartContext.Provider value={{ products, setProducts, total, setTotal, notes, setNotes }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage/>} />
@@ -29,6 +34,7 @@ export default function App() {
           <Route path="/shop" element={<ShopPage />} />
         </Routes>
       </BrowserRouter>
+      </CartContext.Provider>
       </AuthContext.Provider>
 
       <FixedRodape />
