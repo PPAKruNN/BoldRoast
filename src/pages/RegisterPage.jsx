@@ -80,7 +80,7 @@ export default function RegisterPage() {
 
 const ResgisterContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 300px);
+  min-height: calc(100vh - 300px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -89,6 +89,7 @@ const ResgisterContainer = styled.div`
   font-size: 16px;
   line-height: 16px;
   color: #1E1E1E;
+  padding-bottom: 20px;
   
     div {
       width: min-content;
@@ -144,7 +145,7 @@ const ResgisterContainer = styled.div`
         margin-top: 20px;
 
         &:hover{
-          background-color: #00fa9a;
+          background-color: #5A3A20;
         }
     }
 

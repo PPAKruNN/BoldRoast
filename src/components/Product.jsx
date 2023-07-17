@@ -14,7 +14,7 @@ export default function Product({product}){
                     <img src={product.image} alt={product.title} />
                     <h2>{product.name}</h2>
                     <p>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                    <button onClick={() => navigate("/product/" + product._id) }>ABRIR PAGINA DO PRODUTO</button>
+                    <button onClick={() => navigate("/product/" + product._id) }>VER DETALHES</button>
                 </>
             ) : (
                 <>
