@@ -109,16 +109,19 @@ export default function CheckoutPage(){
     }
 
     function enviarPedido(){
+       
+        const formatedCC = creditCard.replaceAll(" ", "");
+
         const compra = {
             notes,
             products,
             addressInfo:{ addressName,cep,address,addressComplement,city,state },
-            paymentInfo:{ creditCard, cardOwner, cardExpiringDate, cvv, installments }
+            paymentInfo:{creditCard: formatedCC, cardOwner, cardExpiringDate, cvv, installments }
         }
         axios.post(`${import.meta.env.VITE_API_URL}/purchases`, compra, config)
-            .then(resp =>{
+            .then(() => {
                 alert("Recebemos seu pedido!");
-                navigate('/home');
+                navigate('/');
             })
             .catch(error=>{
                 if(error.response.status === 422){
