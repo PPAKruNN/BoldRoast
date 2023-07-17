@@ -8,6 +8,7 @@ import FixedRodape from "./components/Rodape"
 import { useState } from "react"
 import AuthContext from "./context/AuthContext"
 import CheckoutPage from "./pages/CheckoutPage"
+import ShopPage from "./pages/ShopPage"
 
 export default function App() {
   
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <>
+
       <AuthContext.Provider value={{ token, setToken, userName, setUserName }}>
       <BrowserRouter>
         <Routes>
@@ -25,6 +27,7 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/product" element={<ProductPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/shop" element={<ShopPage />} />
         </Routes>
       </BrowserRouter>
       </AuthContext.Provider>
