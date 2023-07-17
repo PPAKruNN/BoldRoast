@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import FixedCart from '../components/Cart';
+import axios from 'axios';
 
 export default function ProductPage() {
     const { id } = useParams();
@@ -32,7 +32,7 @@ export default function ProductPage() {
     useEffect(() => {
         const getProducts = async() => {
             try {
-                const product = await axios.get(`/product/${id}`);
+                const product = await axios.get(`${import.meta.env.VITE_API_URL}/product/${id}`);
                 if(!product) {
                     navigate("/");
                 }
