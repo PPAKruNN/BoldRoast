@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AuthContext from "../context/AuthContext";
 import useForm from "../services/useForm";
 import axios from "axios";
 import FixedMenu from "../components/Menu";
@@ -12,21 +10,17 @@ export default function RegisterPage() {
   
   function useRegister() {
     const navigate = useNavigate();
-    const { setUserName } = useContext(AuthContext);
   
     return (body) => {
       axios
         .post(`${import.meta.env.VITE_API_URL}/register`, body)
-        .then(() => navigate("/login"))
+        .then(() => navigate("/"))
         .catch(error =>{
-          if(error.response.status === 404){
-            alert("Erro! Tente novamente mais tarde.");
+          if(error.response.status === 409){
+            alert("Ja existe um usuario cadastrado com esse email");
             return;
           }
-          if(error.response.data.userName === setUserName){
-            alert("Esse usuário já está cadastrado!");
-            return;
-          }
+          alert("Erro desconhecido!");
         })
     };
   }

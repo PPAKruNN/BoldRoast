@@ -22,7 +22,7 @@ export default function LoginPage() {
           setToken(response.data.token);
           setUserName(response.data.userName);
           localStorage.setItem("token", response.data.token);
-          navigate("/product");
+          navigate("/");
         })
         .catch(error =>{
           if(error.response.status === 422){

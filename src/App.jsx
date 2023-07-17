@@ -14,7 +14,6 @@ export default function App() {
   
 
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [userName, setUserName] = useState(localStorage.getItem("userName"));
 
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -22,7 +21,7 @@ export default function App() {
 
   return (
     <>
-      <AuthContext.Provider value={{ token, setToken, userName, setUserName }}>
+      <AuthContext.Provider value={{ token, setToken }}>
       <CartContext.Provider value={{ products, setProducts, total, setTotal, notes, setNotes }}>
       <BrowserRouter>
         <Routes>
