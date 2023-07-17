@@ -13,24 +13,23 @@ export default function LoginPage() {
 
   function useLogin() {
     const navigate = useNavigate();
-    const { setToken, setUserName } = useContext(AuthContext);
+    const { setToken } = useContext(AuthContext);
   
     return (body) => {
       axios
         .post(`${import.meta.env.VITE_API_URL}/login`, body)
         .then((response) => {
-          setToken(response.data.token);
-          setUserName(response.data.userName);
-          localStorage.setItem("token", response.data.token);
+          setToken(response.data);
+          localStorage.setItem("token", response.data);
           navigate("/");
         })
         .catch(error =>{
           if(error.response.status === 422){
-            alert("O e-mail informado é inválido!");
+            alert("Dados em formato invalido!");
             return;
           }
           if(error.response.status === 404){
-            alert("O e-mail informado não está cadastrado, cadastre-se primeiro!");
+            alert("O e-mail informado não está cadastrado");
             return;
           }
           if(error.response.status === 401){
