@@ -69,21 +69,21 @@ export default function HomePage() {
                     <div> {/* Slider */}
                         {latest.length === 0 ? (
                             <h1>Nao ha produtos para serem exibidos</h1>
-                        ) : latest.map((curr, index) => (
+                        ) : latest.slice(0, 4).map((curr, index) => (
                             <Product key={index} product={curr}/>
                         ))}
                     </div>
                 </ProductSliders>
         
                 <BannersCategorias>
-                    <div onClick={alert}>
+                    <div>
                         <div>
                             <h1>COMPRAR CAFÉ EM GRÃOS</h1> 
                             <p>Separados por torra, para moer em casa como preferir</p>
                         </div>
                         <img src={CoffeBeans}/>
                     </div>
-                    <div onClick={alert}>
+                    <div>
                         <div>
                             <h1>COMPRAR CAFÉ MOÍDO</h1> 
                             <p>Escolha a moagem ideal para o seu método favorito</p>
@@ -91,18 +91,18 @@ export default function HomePage() {
                         <img src={CoffeDust}/>
                     </div>
                 </BannersCategorias>
-
+{/* 
                 <ProductSliders>
                     <h1>Mais Vendidos</h1>
 
-                    <div> {/* Slider */}
+                    <div>
                         <Product />
                         <Product />
                         <Product />
                         <Product />
                     </div>
                 </ProductSliders>
-        
+*/}
                 <CommentsSection>
                     <div>
                         <h1>Quem compra se apaixona</h1> 
@@ -110,26 +110,26 @@ export default function HomePage() {
 
                     <Comments>
                         <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <p>Estou simplesmente encantada com a variedade e qualidade dos cafés da loja. Cada xícara é uma experiência única.</p>
                             <span>
                                 <img src={CoffeBeans}/>
-                                <p>Karinha Karona</p>
+                                <p>Kristin Watson</p>
                             </span>
                         </div>
 
                         <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <p>Descobri essa loja de cafés especiais e fiquei impressionado com a dedicação e paixão pela qualidade.</p>
                             <span>
                                 <img src={CoffeBeans}/>
-                                <p>Karinha Karona</p>
+                                <p>Wade Warren</p>
                             </span>
                         </div>
 
                         <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <p>Sou apaixonada por café e encontrei nessa loja um verdadeiro paraíso para os amantes da bebida.</p>
                             <span>
                                 <img src={CoffeBeans}/>
-                                <p>Karinha Karona</p>
+                                <p>Darlene Robertson</p>
                             </span>
                         </div>
                     </Comments>
@@ -399,6 +399,7 @@ const CommentsSection = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding-top: 30px;
 
     gap: 65px;
 
