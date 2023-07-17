@@ -19,7 +19,7 @@ export default function FixedRodape() {
 }
 
 const Rodape = styled.div`
-height: 100vh-150px;
+height: 150px;
 width: 100%;
 display: flex;
 justify-content: center;
@@ -32,6 +32,7 @@ const RodapeContainer = styled.div`
     align-items: center;
 
     h1 {
+        font-family: Ubuntu, sans-serif;
         color: #A1AEB7;
         font-weight: 400;
         font-size: 14px;

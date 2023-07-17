@@ -26,7 +26,7 @@ export default function FixedMenu() {
 }
 
 const Menu = styled.div`
-height: 143px;
+height: 150px;
 width: auto;
 display: flex;
 justify-content: center;

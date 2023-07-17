@@ -5,6 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import useForm from "../services/useForm";
 import AuthContext from "../context/AuthContext";
+import FixedMenu from "../components/Menu";
 
 
 export default function LoginPage() {
@@ -47,41 +48,47 @@ export default function LoginPage() {
   }
 
   return (
+    <>
+    <FixedMenu />
     <LoginContainer>
         <h1>Faça login para sua conta</h1>
-
-      <form onSubmit={formLogin}>
-        <input
-          required
-          type="email"
-          placeholder="E-mail"
-          name="email"
-          value={form.email}
-          onChange={changeForm}
-        />
-        <input
-          required
-          type="password"
-          placeholder="Senha"
-          name="password"
-          value={form.password}
-          onChange={changeForm}
-        />
-        <button type="submit">CONTINUAR</button>
-      </form>
-
-      <Link to="/cadastro">Ainda não tem uma conta? Cadastre-se!</Link>
+      <div>
+        <form onSubmit={formLogin}>
+          <label htmlFor="email">E-mail</label>
+          <input 
+            required
+            type="email"
+            placeholder="E-mail"
+            name="email"
+            value={form.email}
+            onChange={changeForm}
+          />
+          <label htmlFor="password">Senha</label>
+          <input 
+            required
+            type="password"
+            placeholder="Senha"
+            name="password"
+            value={form.password}
+            onChange={changeForm}
+          />
+          <button type="submit">CONTINUAR</button>
+        </form>
+      </div>
+  
+      <span>Ainda não tem uma conta? <Link to="/register">Cadastre-se!</Link></span>
     </LoginContainer>
+    </>
   );
 }
 
 
 const LoginContainer = styled.div`
   width: 100%;
-  height: 393px;
+  height: calc(100vh - 300px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-weight: 400;
   font-size: 16px;
@@ -89,25 +96,46 @@ const LoginContainer = styled.div`
   color: #1E1E1E;
 
     h1{
+        font-family: "Ubuntu", sans-serif;
         font-weight: 700;
         font-size: 34px;
         line-height: 64px;
         color: #0B1424;
-        margin-top: 100px;
         margin-bottom: 20px;
     }
 
+    div {
+      width: min-content;
+    }
+
     input{  
+        font-family: "Ubuntu", sans-serif;
         width: 396px;
         height: 48px;
         border-radius: 8px;
-        background-color: #E0EFFE;
-        color: primary-weak;
         font-weight: 400;
         font-size: 14px;
         line-height: 14px;
     }
+    label {
+      align-self: flex-start;
+      font-family: "Ubuntu", sans-serif;
+      color: #5A5A5D;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    
+    span {
+      color: #1E1E1E;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    
+    a {
+        color: #013743;
+    }
 
+    
     button{
         width: 396px;
         height: 53px;
