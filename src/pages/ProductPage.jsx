@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import FixedCart from '../components/Cart';
 
 export default function ProductPage() {
+    const { id } = useParams();
+
     const [ quantity, setQuantity ] = useState(1);
     const [ selected, setSelected ] = useState(1);
 
@@ -19,6 +23,28 @@ export default function ProductPage() {
         setSelected(e);
     }
 
+    const handleClickBuy = () => {
+        alert('Produto adicionado ao carrinho');
+    }
+
+    const product = {
+        _id: 1,
+        name: "Café Tradicional",
+        price: 29.90,
+        image: "./src/images/image.png",
+        description: "Um café tradicional e encorpado para começar o dia.",
+        quantity: quantity,
+        variations: {
+        size: [ "250g", "500g", "1kg" ],
+        grind: ["Moído", "Grãos"]
+        }    
+    }
+
+    const variationsArray = product.variations.size.reduce((acc, size) => {
+        const variations = product.variations.grind.map(grind => `${size}/${grind}`);
+        return [...acc, ...variations];
+    }, []);
+    
     return (
         <ProductPageContainer>
             <ProductContainer>
@@ -26,27 +52,20 @@ export default function ProductPage() {
                 <ProductDescription>
                     <ProductName>
                         <h1>
-                            Café 001 - Notas<br/>de Caramelo
+                            {product.name}
                         </h1>
                         <h1>
-                            R$ 35,00
+                            R${product.price.toFixed(2).toString().replace(".", ",")}
                         </h1>
                     </ProductName>
                     <Variations $position={selected}>
                         <p>Variação</p>
                         <div>
-                            <button onClick={() => handleSelected(1)}>
-                                250g/grãos   
-                            </button>
-                            <button onClick={() => handleSelected(2)}>
-                                500g/grãos
-                            </button>
-                            <button onClick={() => handleSelected(3)}>
-                                250g/moído
-                            </button>
-                            <button onClick={() => handleSelected(4)}>
-                                500g/moído
-                            </button>
+                            {variationsArray.map((variation, index) => (
+                                <button key={index} onClick={() => handleSelected(index + 1)}>
+                                    {variation}
+                                </button>
+                            ))}
                         </div>                       
                     </Variations>
                     <h2>Quantidade</h2>                  
@@ -56,12 +75,12 @@ export default function ProductPage() {
                             <QuantityDisplay>{quantity}</QuantityDisplay>
                             <QuantityButton onClick={incrementQuantity}>+</QuantityButton>
                         </QuantityCounter>
-                        <BuyButton>COMPRAR</BuyButton>
+                        <BuyButton onClick={handleClickBuy}>COMPRAR</BuyButton>
                     </FinishOrder>
                     <h2>Descrição</h2>
-                    <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat incididunt ut labore et dolore.</h3>
+                    <h3>{product.description}</h3>
                 </ProductDescription>
-            </ProductContainer>            
+            </ProductContainer>     
         </ProductPageContainer>
     );
 }
