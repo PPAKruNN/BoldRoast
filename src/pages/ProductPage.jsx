@@ -44,7 +44,7 @@ export default function ProductPage() {
             productQuantity: quantity,
         }
         setTotal(total + product.price);
-       
+        
         
         products.push(currProd);
 
