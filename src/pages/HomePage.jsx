@@ -1,13 +1,30 @@
 import styled from "styled-components";
-import CoffeMock from "../images/CoffeMock.png"
+import CoffeMock from "../images/CoffeMock.jpeg"
 import CoffeBeans from "../images/cafe-graos.png"
 import CoffeDust from "../images/cafe-moido.png"
-import LeftArrow from "../images/icon-arrow-left.svg"
-import RightArrow from "../images/icon-arrow-right.svg"
 import Product from "../components/Product";
 import FixedMenu from "../components/Menu";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function HomePage() {
+
+    const navigate = useNavigate(); 
+
+    const [latest, setLatest] = useState([]); 
+
+
+    useEffect( () => {
+        axios.get(`${import.meta.env.VITE_API_URL}/products`)
+            .then(res => {
+                const prods = res.data;
+                console.log(res);
+                setLatest(prods.slice(0, 5));
+            })
+            .catch( error => alert(error));
+    }, []);
+
 
     return (
         <>
@@ -18,7 +35,7 @@ export default function HomePage() {
                     <div>
                         <h1>Cafés especiais para pessoas com personalidade</h1> 
                         <p>A MELHOR SELEÇÃO DE CAFÉS DO MUNDO INTEIRO, AO SEU ALCANCE</p>
-                        <button>EXPLORAR CAFÉS</button>
+                        <button onClick={() => navigate("/shop")} >EXPLORAR CAFÉS</button>
                     </div>      
             
                     <img src={CoffeMock}/>
@@ -49,14 +66,12 @@ export default function HomePage() {
                 <ProductSliders>
                     <h1>Lançamentos</h1>
 
-                    <img className="left" src={LeftArrow}/>
-                    <img className="right" src={RightArrow}/>
-
                     <div> {/* Slider */}
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
+                        {latest.length === 0 ? (
+                            <h1>Nao ha produtos para serem exibidos</h1>
+                        ) : latest.map((curr, index) => (
+                            <Product key={index} product={curr}/>
+                        ))}
                     </div>
                 </ProductSliders>
         
@@ -80,9 +95,6 @@ export default function HomePage() {
                 <ProductSliders>
                     <h1>Mais Vendidos</h1>
 
-                    <img className="left" src={LeftArrow}/>
-                    <img className="right" src={RightArrow}/>
-
                     <div> {/* Slider */}
                         <Product />
                         <Product />
@@ -94,10 +106,6 @@ export default function HomePage() {
                 <CommentsSection>
                     <div>
                         <h1>Quem compra se apaixona</h1> 
-                        <span>
-                            <img onClick={alert} src={LeftArrow}/>
-                            <img onClick={alert} src={RightArrow}/>
-                        </span>
                     </div>
 
                     <Comments>
@@ -212,6 +220,8 @@ const PresentationSection = styled.div`
     img {
         width: 55%;
         border-radius: 32px;
+        object-fit: cover;
+        object-position: 0%;
     }
 `
 
@@ -283,8 +293,16 @@ const ProductSliders = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
         height: 450px;
+
+        h1 {
+            font-size: 24px;
+            justify-self: center;
+            width: 100%;
+            text-align: center;
+        }
 
         div {
             display: flex;
