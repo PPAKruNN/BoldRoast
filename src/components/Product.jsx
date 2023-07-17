@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import CoffeMock from "../images/CoffeMock.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Product({product}){
+   
+    const navigate = useNavigate()
+
     return(
         <ProductDiv>
             {product ? (
@@ -10,14 +14,14 @@ export default function Product({product}){
                     <img src={product.image} alt={product.title} />
                     <h2>{product.name}</h2>
                     <p>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                    <button>ADICIONAR AO CARRINHO</button>
+                    <button onClick={() => navigate("/product/" + product._id) }>ABRIR PAGINA DO PRODUTO</button>
                 </>
             ) : (
                 <>
                     <img src={CoffeMock} alt="Mocked Coffee" />
                     <h2>Café 001 Notas de Caramelo</h2>
                     <p>R$35,00</p>
-                    <button>ADICIONAR AO CARRINHO</button>
+                    <button>ABRIR PAGINA DO PRODUTO</button>
                 </>
             )}
         </ProductDiv>

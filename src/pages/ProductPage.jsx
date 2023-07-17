@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import FixedMenu from '../components/Menu';
 
 export default function ProductPage() {
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const [ quantity, setQuantity ] = useState(1);
     const [ selected, setSelected ] = useState(1);
-    const [ product, setProduct ] = useState({});
+    const [ product, setProduct ] = useState();
+    const [ variationsArray, setVariationsArray] = useState([]);
 
     const incrementQuantity = () => {
       setQuantity(quantity + 1);
@@ -31,62 +32,72 @@ export default function ProductPage() {
 
     useEffect(() => {
         const getProducts = async() => {
+            console.log("chamou!")
             try {
-                const product = await axios.get(`${import.meta.env.VITE_API_URL}/product/${id}`);
-                if(!product) {
-                    navigate("/");
-                }
-                setProduct(product);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}`);
+                const newProduct = response.data;
+
+                setProduct(newProduct);
+
+                const variationsArr = newProduct.variations.size.reduce((acc, size) => {
+                    const variations = newProduct.variations.grind.map(grind => `${size}/${grind}`);
+                    return [...acc, ...variations];
+                }, []);
+
+                setVariationsArray(variationsArr);
+
             } catch(err) {
-                console.log(product);
+                console.log(err);
             }   
         }   
         getProducts();
     }, []);
     
-    const variationsArray = product.variations.size.reduce((acc, size) => {
-        const variations = product.variations.grind.map(grind => `${size}/${grind}`);
-        return [...acc, ...variations];
-    }, []);
+    
     
     return (
         <>
-        <FixedMenu />
+        <FixedMenu/>
         <ProductPageContainer>
-            <ProductContainer>
-                <ProductImage src="./src/images/image.png" />
-                <ProductDescription>
-                    <ProductName>
-                        <h1>
-                            {product.name}
-                        </h1>
-                        <h1>
-                            R${product.price.toFixed(2).toString().replace(".", ",")}
-                        </h1>
-                    </ProductName>
-                    <Variations $position={selected}>
-                        <p>Variação</p>
-                        <div>
-                            {variationsArray.map((variation, index) => (
-                                <button key={index} onClick={() => handleSelected(index + 1)}>
-                                    {variation}
-                                </button>
-                            ))}
-                        </div>                       
-                    </Variations>
-                    <h2>Quantidade</h2>                  
-                    <FinishOrder>
-                        <QuantityCounter>
-                            <QuantityButton onClick={decrementQuantity}>-</QuantityButton>
-                            <QuantityDisplay>{quantity}</QuantityDisplay>
-                            <QuantityButton onClick={incrementQuantity}>+</QuantityButton>
-                        </QuantityCounter>
-                        <BuyButton onClick={handleClickBuy}>COMPRAR</BuyButton>
-                    </FinishOrder>
-                    <h2>Descrição</h2>
-                    <h3>{product.description}</h3>
-                </ProductDescription>
-            </ProductContainer>     
+            {!product ? 
+            (
+                <h1>Loading</h1>
+            ) : (
+                <ProductContainer>
+                    <ProductImage src={product.image} />
+                    <ProductDescription>
+                        <ProductName>
+                            <h1>
+                                {product.name}
+                            </h1>
+                            <h1>
+                                R${product.price.toFixed(2).toString().replace(".", ",")}
+                            </h1>
+                        </ProductName>
+                        <Variations $position={selected}>
+                            <p>Variação</p>
+                            <div>
+                                {variationsArray.map((variation, index) => (
+                                    <button key={index} onClick={() => handleSelected(index + 1)}>
+                                        {variation}
+                                    </button>
+                                ))}
+                            </div>                       
+                        </Variations>
+                        <h2>Quantidade</h2>                  
+                        <FinishOrder>
+                            <QuantityCounter>
+                                <QuantityButton onClick={decrementQuantity}>-</QuantityButton>
+                                <QuantityDisplay>{quantity}</QuantityDisplay>
+                                <QuantityButton onClick={incrementQuantity}>+</QuantityButton>
+                            </QuantityCounter>
+                            <BuyButton onClick={handleClickBuy}>COMPRAR</BuyButton>
+                        </FinishOrder>
+                        <h2>Descrição</h2>
+                        <h3>{product.description}</h3>
+                    </ProductDescription>
+                </ProductContainer>     
+            ) }
         </ProductPageContainer>
         </>
     );

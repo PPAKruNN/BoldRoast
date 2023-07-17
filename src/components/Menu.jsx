@@ -84,6 +84,7 @@ const ImageText = styled.div`
 width: 200px;
 height: 105px;
 display: flex;
+cursor: pointer;
 ` 
 
 const Icons = styled.div`
