@@ -3,6 +3,7 @@ import CoffeMock from "../images/CoffeMock.png";
 import { useContext, useState } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function CheckoutPage(){
@@ -25,6 +26,10 @@ export default function CheckoutPage(){
 
     const { token } = useContext(AuthContext);
     const config = { headers: { Authorization:`Bearer ${token}` } }
+
+    const navigate = useNavigate();
+
+    //const {products, notes} = useContext(CartContext);
 
     function formatarCEP(e){
         const input = e.target;
@@ -92,11 +97,32 @@ export default function CheckoutPage(){
 
     function enviarPedido(){
         const compra = {
-
+            notes: "texto aqui",
+            products: "produtinhos",
+            adressInfo:{ addressName,cep,address,addressComplement,city,state },
+            paymentInfo:{ creditCard, cardOwner, cardExpiringDate, cvv, installments }
         }
         axios.post(`${import.meta.env.VITE_API_URL}/purchases`, compra, config)
-
-        alert("Recebemos seu pedido!")
+            .then(resp =>{
+                alert("Recebemos seu pedido!");
+                navigate('/home');
+            })
+            .catch(error=>{
+                if(error.response.status === 422){
+                    alert("Preencha todos os campos corretamente");
+                    setExibirEndereco(true);
+                    return;
+                }
+                if(error.response.status === 401){
+                    alert("Você foi desconectado, faça o login novamente.");
+                    navigate('/login');
+                    return;
+                }
+                if(error.response.status === 500){
+                    alert("Tente novamente em alguns instantes");
+                    return;
+                }
+            })
     }
 
     return(
