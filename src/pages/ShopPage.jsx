@@ -30,6 +30,7 @@ export default function ShopPage (){
 const Shop = styled.div`
     font-family: Ubuntu, sans-serif;
     max-width: 1100px;
+    min-height: calc(100vh - 480px);
     display: flex;
     flex-direction: column;
     align-items: center;
