@@ -1,12 +1,100 @@
 import { styled } from "styled-components";
 import CoffeMock from "../images/CoffeMock.png";
 import { useState } from "react";
+import axios from "axios";
 
 
 export default function CheckoutPage(){
     const [exibirEndereco, setExibirEndereco] = useState(true);
     const [exibirPagamento, setExibirPagamento] = useState (false);
+    const [botaoFinalizar, setBotaoFinalizar] = useState (true);
 
+    const [addressName, setAddressName] = useState("");
+    const [cep, setCep] = useState("");
+    const [address, setAddress] = useState("");
+    const [addressComplement, setAddressComplement] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+
+    const [creditCard, setCreditCard] = useState("");
+    const [cardOwner, setCardOwner] = useState("");
+    const [cardExpiringDate, setCardExpiringDate] = useState("");
+    const [cvv, setCvv] = useState("");
+    const [installments, setInstallments] = useState("");
+
+
+    function formatarCEP(e){
+        const input = e.target;
+        let value = input.value.replace(/\D/g, '');
+    
+        if (value.length > 8) {
+            value = value.slice(0, 8);
+        }
+    
+        if (value.length > 5) {
+            value = `${value.slice(0, 5)}-${value.slice(5)}`;
+        }
+    
+        input.value = value;
+    }
+
+    function formatarNumeroCartao(e){
+        const input = e.target;
+        let value = input.value.replace(/\D/g, '');
+
+        if (value.length > 16) {
+            value = value.slice(0, 16);
+        }
+
+        value = value.replace(/(\d{4})/g, '$1 ').trim();
+        input.value = value;
+    }
+
+    function formatarValidadeCartao(e){
+        const input = e.target;
+        let value = input.value.replace(/\D/g, '');
+
+        if (value.length > 4) {
+            value = value.slice(0, 4);
+        }
+
+        value = value.replace(/^(\d{2})/, '$1/');
+        input.value = value;
+    }
+
+    function formatarCVVCartao(e){
+        const input = e.target;
+        let value = input.value.replace(/\D/g, '');
+
+        if (value.length > 3) {
+            value = value.slice(0, 3);
+        }
+
+        input.value = value;
+    }
+
+    function handleEndereco(e){
+        e.preventDefault();
+
+        setExibirEndereco(false);
+        setExibirPagamento(true);
+    }
+
+    function handlePagamento(e){
+        e.preventDefault();
+
+        setExibirPagamento(false);
+        setBotaoFinalizar(false);
+    }
+
+    function enviarPedido(){
+        const compra = {
+
+        }
+        axios.post(`${import.meta.env.VITE_API_URL}/purchases`, compra, config)
+
+        alert("Recebemos seu pedido!")
+    }
 
     return(
         <>
@@ -18,151 +106,180 @@ export default function CheckoutPage(){
 
                 <MainContent>
                     <CheckoutInputs>
-                        <Inputs>
-                            <h2>Endereço de Entrega</h2>
-                            <form>
-                                <label htmlFor="remetente">Nome completo do remetente</label>
-                                <input
-                                    name="remetente"
-                                    placeholder="Digite o nome completo aqui"
-                                    type="text"
-                                    required
-                                />
+                        {exibirEndereco ?
+                                <Inputs>
+                                    <h2>Endereço de Entrega</h2>
+                                    <form onSubmit={handleEndereco}>
+                                        <label htmlFor="remetente">Nome completo do remetente</label>
+                                        <input
+                                            name="remetente"
+                                            placeholder="Digite o nome completo aqui"
+                                            type="text"
+                                            required
+                                            onChange={(e) => setAddressName(e.target.value)}
+                                        />
 
-                                <label htmlFor="cep">CEP</label>
-                                <input
-                                    name="cep"
-                                    placeholder="Digite o número do seu CEP aqui"
-                                    type="text"
-                                    inputMode="numeric"
-                                    maxLength="8"
-                                    onInput={formatarCEP}
-                                    required
-                                />
+                                        <label htmlFor="cep">CEP</label>
+                                        <input
+                                            name="cep"
+                                            placeholder="Digite o número do seu CEP aqui"
+                                            type="text"
+                                            inputMode="numeric"
+                                            maxLength="9"
+                                            onInput={formatarCEP}
+                                            required
+                                            onChange={(e) => setCep(e.target.value)}
+                                        />
 
-                                <label htmlFor="endereco">Endereço</label>
-                                <input
-                                    name="endereco"
-                                    placeholder="Digite o seu endereço aqui"
-                                    type="text"
-                                    required
-                                />
+                                        <label htmlFor="endereco">Endereço</label>
+                                        <input
+                                            name="endereco"
+                                            placeholder="Digite o seu endereço aqui"
+                                            type="text"
+                                            required
+                                            onChange={(e) => setAddress(e.target.value)}
+                                        />
 
-                                <label htmlFor="complemento">Complemento (opcional)</label>
-                                <input
-                                    name="complemento"
-                                    placeholder="Digite o complemento do seu endereço aqui"
-                                    type="text"
-                                />
+                                        <label htmlFor="complemento">Complemento (opcional)</label>
+                                        <input
+                                            name="complemento"
+                                            placeholder="Digite o complemento do seu endereço aqui"
+                                            type="text"
+                                            onChange={(e) => setAddressComplement(e.target.value)}
+                                        />
 
-                                <label htmlFor="cidade">Cidade</label>
-                                <input
-                                    name="cidade"
-                                    placeholder="Digite sua cidade aqui aqui"
-                                    type="text"
-                                    required
-                                />
+                                        <label htmlFor="cidade">Cidade</label>
+                                        <input
+                                            name="cidade"
+                                            placeholder="Digite sua cidade aqui aqui"
+                                            type="text"
+                                            required
+                                            onChange={(e) => setCity(e.target.value)}
+                                        />
 
-                                <label htmlFor="estado">Estado</label>
-                                <select
-                                    name="estado"
-                                    required
-                                >
-                                    <option value="">Selecione seu estado</option>
-                                    <option value="AC">Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SP">São Paulo</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
-                                </select>
+                                        <label htmlFor="estado">Estado</label>
+                                        <select
+                                            name="estado"
+                                            required
+                                            onChange={(e) => setState(e.target.value)}
+                                        >
+                                            <option value="">Selecione seu estado</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
 
-                                <button>SEGUIR PARA PAGAMENTO</button>
-                            </form>
-                        </Inputs>
-                        <ClosedInputs>
-                            <h2>Endereço de Entrega</h2>
-                        </ClosedInputs>
-                        <ClosedInputs>
-                            <h2>Dados de Pagamento</h2>
-                        </ClosedInputs>
-                        <Inputs>
-                        <h2>Dados de Pagamento</h2>
-                            <form>
-                                <label htmlFor="numerocartao">Número do cartão</label>
-                                <input
-                                    name="numerocartao"
-                                    type="text"
-                                    required
-                                    inputMode="numeric"
-                                    pattern="[0-9\s]{13,19}"
-                                    autoComplete="cc-number"
-                                    maxLength="19"
-                                    placeholder="1234 5678 9123 4567"
-                                />
+                                        <button type="submit">SEGUIR PARA PAGAMENTO</button>
+                                    </form>
+                                </Inputs>
 
-                                <label htmlFor="nomecartao">Nome impresso no cartão</label>
-                                <input
-                                    name="nomecartao"
-                                    placeholder="Digite o nome impresso no cartão"
-                                    type="text"
-                                    required
-                                />
+                        :   <ClosedInputs>
+                                <h2>Endereço de Entrega</h2>
+                            </ClosedInputs>
+                        }
+                        
+                        {exibirPagamento ? 
+                            <Inputs>
+                                <h2>Dados de Pagamento</h2>
+                                <form onSubmit={handlePagamento}>
+                                    <label htmlFor="numerocartao">Número do cartão</label>
+                                    <input
+                                        name="numerocartao"
+                                        type="text"
+                                        required
+                                        inputMode="numeric"
+                                        pattern="[0-9\s]{13,19}"
+                                        autoComplete="cc-number"
+                                        onInput={formatarNumeroCartao}
+                                        maxLength="19"
+                                        placeholder="1234 5678 9123 4567"
+                                        onChange={(e) => setCreditCard(e.target.value)}
+                                    />
+    
+                                    <label htmlFor="nomecartao">Nome impresso no cartão</label>
+                                    <input
+                                        name="nomecartao"
+                                        placeholder="Digite o nome impresso no cartão"
+                                        type="text"
+                                        required
+                                        onChange={(e) => setCardOwner(e.target.value)}
+                                    />
+    
+                                    <label htmlFor="validade">Validade</label>
+                                    <input
+                                        name="validade"
+                                        placeholder="MM/AA"
+                                        onInput={formatarValidadeCartao}
+                                        type="text"
+                                        required
+                                        onChange={(e) => setCardExpiringDate(e.target.value)}
+                                    />
+    
+                                    <label htmlFor="cvv">Código de segurança (CVV)</label>
+                                    <input
+                                        name="cvv"
+                                        placeholder="123"
+                                        onInput={formatarCVVCartao}
+                                        maxLength="3"
+                                        type="number"
+                                        onChange={(e) => setCvv(e.target.value)}
+                                    />
+    
+                                    <label htmlFor="parcelamento">Parcelamento</label>
+                                    <select
+                                        name="parcelamento"
+                                        required
+                                        onChange={(e) => setInstallments(e.target.value)}
+                                    >
+                                        <option value="">Escolha o número de parcelas</option>
+                                        <option value="1x">1x</option>
+                                        <option value="2x">2x</option>
+                                        <option value="3x">3x</option>
+                                        <option value="4x">4x</option>
+                                        <option value="5x">5x</option>
+                                        <option value="6x">6x</option>
+                                        <option value="7x">7x</option>
+                                        <option value="8x">8x</option>
+                                        <option value="9x">9x</option>
+                                        <option value="10x">10x</option>
+                                        <option value="11x">11x</option>
+                                        <option value="12x">12x</option>
+                                    </select>
+    
+                                    <button type="submit">REVISAR SEU PEDIDO</button>
+                                </form>
+                            </Inputs>
 
-                                <label htmlFor="validade">Validade</label>
-                                <input
-                                    name="validade"
-                                    placeholder="MM/AA"
-                                    type="text"
-                                    required
-                                />
-
-                                <label htmlFor="cvv">Código de segurança (CVV)</label>
-                                <input
-                                    name="cvv"
-                                    placeholder="123"
-                                    type="text"
-                                />
-
-                                <label htmlFor="parcelamento">Parcelamento</label>
-                                <select name="parcelamento">
-                                    <option value="">Escolha o número de parcelas</option>
-                                    <option value="1x">1x</option>
-                                    <option value="2x">2x</option>
-                                    <option value="3x">3x</option>
-                                    <option value="4x">4x</option>
-                                    <option value="5x">5x</option>
-                                    <option value="6x">6x</option>
-                                    <option value="7x">7x</option>
-                                    <option value="8x">8x</option>
-                                    <option value="9x">9x</option>
-                                    <option value="10x">10x</option>
-                                    <option value="11x">11x</option>
-                                    <option value="12x">12x</option>
-                                </select>
-                            </form>
-                        </Inputs>
+                        :   <ClosedInputs>
+                                <h2>Dados de Pagamento</h2>
+                            </ClosedInputs>
+                        }
+                        
+                        
                     </CheckoutInputs>
                     <ReviewOrder>
                         <div>
@@ -193,7 +310,7 @@ export default function CheckoutPage(){
                                 <h3>Total:</h3>
                                 <h3>R$299,97</h3>
                             </div>
-                            <button>FINALIZAR PEDIDO</button>
+                            <button disabled={botaoFinalizar} onClick={enviarPedido}>FINALIZAR PEDIDO</button>
                         </TotalOrder>
                     </ReviewOrder>
                 </MainContent>
