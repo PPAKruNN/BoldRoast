@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../context/CartContext";
 
 
 export default function CheckoutPage(){
@@ -29,7 +30,7 @@ export default function CheckoutPage(){
 
     const navigate = useNavigate();
 
-    //const {products, notes} = useContext(CartContext);
+    const {products, total, notes} = useContext(CartContext);
 
     function formatarCEP(e){
         const input = e.target;
@@ -97,9 +98,9 @@ export default function CheckoutPage(){
 
     function enviarPedido(){
         const compra = {
-            notes: "texto aqui",
-            products: "produtinhos",
-            adressInfo:{ addressName,cep,address,addressComplement,city,state },
+            notes,
+            products,
+            addressInfo:{ addressName,cep,address,addressComplement,city,state },
             paymentInfo:{ creditCard, cardOwner, cardExpiringDate, cvv, installments }
         }
         axios.post(`${import.meta.env.VITE_API_URL}/purchases`, compra, config)
@@ -314,30 +315,27 @@ export default function CheckoutPage(){
                         <div>
                             <h3>Revise seu Pedido</h3>
                             <OrderItems>
-                                <OrderItem>
-                                    <img src={CoffeMock}></img>
-                                    <div>
-                                        <h4>Nome do produto vou deixar bem longo aqui</h4>
-                                        <p>Variação: 250g moído</p>
-                                        <p>Quantidade: 1</p>
-                                        <div>R$99,99</div>
-                                    </div>
-                                </OrderItem>
-                                <OrderItem>
-                                    <img src={CoffeMock}></img>
-                                    <div>
-                                        <h4>Nome do produto vou deixar bem longo aqui</h4>
-                                        <p>Variação: 250g moído</p>
-                                        <p>Quantidade: 1</p>
-                                        <div>R$99,99</div>
-                                    </div>
-                                </OrderItem>
+                            {products.length === 0 ? (
+                                <p>Carregando produtos...</p>
+                            ) : (
+                                products.map((product) =>{
+                                    <OrderItem key={product._id}>
+                                        <img src={product.image}></img>
+                                        <div>
+                                            <h4>{product.name}</h4>
+                                            <p>Variação: {product.productVariation}</p>
+                                            <p>Quantidade: {product.productQuantity}</p>
+                                            <div>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                                        </div>
+                                    </OrderItem>
+                                })
+                            )}
                             </OrderItems>
                         </div>
                         <TotalOrder>
                             <div>
                                 <h3>Total:</h3>
-                                <h3>R$299,97</h3>
+                                <h3>R${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h3>
                             </div>
                             <button disabled={botaoFinalizar} onClick={enviarPedido}>FINALIZAR PEDIDO</button>
                         </TotalOrder>
