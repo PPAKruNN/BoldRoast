@@ -46,6 +46,8 @@ export default function ProductPage() {
     }, []);
     
     return (
+        <>
+        <FixedMenu />
         <ProductPageContainer>
             <ProductContainer>
                 <ProductImage src="./src/images/image.png" />
@@ -82,6 +84,7 @@ export default function ProductPage() {
                 </ProductDescription>
             </ProductContainer>     
         </ProductPageContainer>
+        </>
     );
 }
 

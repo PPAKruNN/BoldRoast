@@ -23,11 +23,13 @@ const GlobalStyle = createGlobalStyle`
         border: 1px solid #ccc;
         padding: 15px;
         margin: 1px;
-        :focus {
-            border: 2px solid #ffb6b6;
-            margin: 0px;
-        }
     }
+
+    input:focus {
+        border: 2px solid #E0EFFE;
+        margin: 0px;
+    }
+
     form {
         display: flex;
         flex-direction: column;
