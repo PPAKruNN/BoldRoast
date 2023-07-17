@@ -57,8 +57,8 @@ export default function RegisterPage() {
               value={form.email}
               onChange={changeForm}
             />
-            <label htmlFor="password">Email</label>
-             <input
+            <label htmlFor="password">Senha</label>
+            <input
               required
               type="password"
               placeholder="Senha"
