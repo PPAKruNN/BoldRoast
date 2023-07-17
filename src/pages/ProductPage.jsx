@@ -1,13 +1,15 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import FixedCart from '../components/Cart';
 
 export default function ProductPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [ quantity, setQuantity ] = useState(1);
     const [ selected, setSelected ] = useState(1);
+    const [ product, setProduct ] = useState({});
 
     const incrementQuantity = () => {
       setQuantity(quantity + 1);
@@ -27,19 +29,21 @@ export default function ProductPage() {
         alert('Produto adicionado ao carrinho');
     }
 
-    const product = {
-        _id: 1,
-        name: "Café Tradicional",
-        price: 29.90,
-        image: "./src/images/image.png",
-        description: "Um café tradicional e encorpado para começar o dia.",
-        quantity: quantity,
-        variations: {
-        size: [ "250g", "500g", "1kg" ],
-        grind: ["Moído", "Grãos"]
-        }    
-    }
-
+    useEffect(() => {
+        const getProducts = async() => {
+            try {
+                const product = await axios.get(`/product/${id}`);
+                if(!product) {
+                    navigate("/");
+                }
+                setProduct(product);
+            } catch(err) {
+                console.log(product);
+            }   
+        }   
+        getProducts();
+    }, []);
+    
     const variationsArray = product.variations.size.reduce((acc, size) => {
         const variations = product.variations.grind.map(grind => `${size}/${grind}`);
         return [...acc, ...variations];
