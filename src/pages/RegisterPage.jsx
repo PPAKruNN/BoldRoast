@@ -16,7 +16,7 @@ export default function RegisterPage() {
   
     return (body) => {
       axios
-        .post(`${import.meta.env.VITE_API_URL}/login`, body)
+        .post(`${import.meta.env.VITE_API_URL}/register`, body)
         .then(() => navigate("/login"))
         .catch(error =>{
           if(error.response.status === 404){
