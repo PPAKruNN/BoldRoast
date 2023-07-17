@@ -4,6 +4,7 @@ import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../context/CartContext";
+import PopupLogin from "../components/PopupLogin";
 
 
 export default function CheckoutPage(){
@@ -27,9 +28,21 @@ export default function CheckoutPage(){
     const { token } = useContext(AuthContext);
     const config = { headers: { Authorization:`Bearer ${token}` } }
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const navigate = useNavigate();
 
     const {products, total, notes} = useContext(CartContext);
+
+    useEffect(() => {
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
+    function navegarLoja(){
+        navigate('/shop');
+    }
 
     function formatarCEP(e){
         const input = e.target;
@@ -130,220 +143,229 @@ export default function CheckoutPage(){
 
     return(
         <>
-            <CheckoutDiv>
-                <TopContent>
-                    <h1>Checkout</h1>
-                    <button>VOLTAR PARA O CARRINHO</button>
-                </TopContent>
+        {isLoggedIn ?
+                        <CheckoutDiv>
+                        <TopContent>
+                            <h1>Checkout</h1>
+                            <button onClick={navegarLoja}>VOLTAR PARA A LOJA</button>
+                        </TopContent>
+        
+                        <MainContent>
+                            <CheckoutInputs>
+                                {exibirEndereco ?
+                                        <Inputs>
+                                            <h2>Endereço de Entrega</h2>
+                                            <form onSubmit={handleEndereco}>
+                                                <label htmlFor="remetente">Nome completo do remetente</label>
+                                                <input
+                                                    name="remetente"
+                                                    placeholder="Digite o nome completo aqui"
+                                                    type="text"
+                                                    required
+                                                    onChange={(e) => setAddressName(e.target.value)}
+                                                />
+        
+                                                <label htmlFor="cep">CEP</label>
+                                                <input
+                                                    name="cep"
+                                                    placeholder="Digite o número do seu CEP aqui"
+                                                    type="text"
+                                                    inputMode="numeric"
+                                                    maxLength="9"
+                                                    onInput={formatarCEP}
+                                                    required
+                                                    onChange={(e) => setCep(e.target.value)}
+                                                />
+        
+                                                <label htmlFor="endereco">Endereço</label>
+                                                <input
+                                                    name="endereco"
+                                                    placeholder="Digite o seu endereço aqui"
+                                                    type="text"
+                                                    required
+                                                    onChange={(e) => setAddress(e.target.value)}
+                                                />
+        
+                                                <label htmlFor="complemento">Complemento (opcional)</label>
+                                                <input
+                                                    name="complemento"
+                                                    placeholder="Digite o complemento do seu endereço aqui"
+                                                    type="text"
+                                                    onChange={(e) => setAddressComplement(e.target.value)}
+                                                />
+        
+                                                <label htmlFor="cidade">Cidade</label>
+                                                <input
+                                                    name="cidade"
+                                                    placeholder="Digite sua cidade aqui aqui"
+                                                    type="text"
+                                                    required
+                                                    onChange={(e) => setCity(e.target.value)}
+                                                />
+        
+                                                <label htmlFor="estado">Estado</label>
+                                                <select
+                                                    name="estado"
+                                                    required
+                                                    onChange={(e) => setState(e.target.value)}
+                                                >
+                                                    <option value="">Selecione seu estado</option>
+                                                    <option value="AC">Acre</option>
+                                                    <option value="AL">Alagoas</option>
+                                                    <option value="AP">Amapá</option>
+                                                    <option value="AM">Amazonas</option>
+                                                    <option value="BA">Bahia</option>
+                                                    <option value="CE">Ceará</option>
+                                                    <option value="DF">Distrito Federal</option>
+                                                    <option value="ES">Espírito Santo</option>
+                                                    <option value="GO">Goiás</option>
+                                                    <option value="MA">Maranhão</option>
+                                                    <option value="MT">Mato Grosso</option>
+                                                    <option value="MS">Mato Grosso do Sul</option>
+                                                    <option value="MG">Minas Gerais</option>
+                                                    <option value="PA">Pará</option>
+                                                    <option value="PB">Paraíba</option>
+                                                    <option value="PR">Paraná</option>
+                                                    <option value="PE">Pernambuco</option>
+                                                    <option value="PI">Piauí</option>
+                                                    <option value="RJ">Rio de Janeiro</option>
+                                                    <option value="RN">Rio Grande do Norte</option>
+                                                    <option value="RS">Rio Grande do Sul</option>
+                                                    <option value="RO">Rondônia</option>
+                                                    <option value="RR">Roraima</option>
+                                                    <option value="SC">Santa Catarina</option>
+                                                    <option value="SP">São Paulo</option>
+                                                    <option value="SE">Sergipe</option>
+                                                    <option value="TO">Tocantins</option>
+                                                </select>
+        
+                                                <button type="submit">SEGUIR PARA PAGAMENTO</button>
+                                            </form>
+                                        </Inputs>
+        
+                                :   <ClosedInputs>
+                                        <h2>Endereço de Entrega</h2>
+                                    </ClosedInputs>
+                                }
+                                
+                                {exibirPagamento ? 
+                                    <Inputs>
+                                        <h2>Dados de Pagamento</h2>
+                                        <form onSubmit={handlePagamento}>
+                                            <label htmlFor="numerocartao">Número do cartão</label>
+                                            <input
+                                                name="numerocartao"
+                                                type="text"
+                                                required
+                                                inputMode="numeric"
+                                                pattern="[0-9\s]{13,19}"
+                                                autoComplete="cc-number"
+                                                onInput={formatarNumeroCartao}
+                                                maxLength="19"
+                                                placeholder="1234 5678 9123 4567"
+                                                onChange={(e) => setCreditCard(e.target.value)}
+                                            />
+            
+                                            <label htmlFor="nomecartao">Nome impresso no cartão</label>
+                                            <input
+                                                name="nomecartao"
+                                                placeholder="Digite o nome impresso no cartão"
+                                                type="text"
+                                                required
+                                                onChange={(e) => setCardOwner(e.target.value)}
+                                            />
+            
+                                            <label htmlFor="validade">Validade</label>
+                                            <input
+                                                name="validade"
+                                                placeholder="MM/AA"
+                                                onInput={formatarValidadeCartao}
+                                                type="text"
+                                                required
+                                                onChange={(e) => setCardExpiringDate(e.target.value)}
+                                            />
+            
+                                            <label htmlFor="cvv">Código de segurança (CVV)</label>
+                                            <input
+                                                name="cvv"
+                                                placeholder="123"
+                                                onInput={formatarCVVCartao}
+                                                maxLength="3"
+                                                type="number"
+                                                onChange={(e) => setCvv(e.target.value)}
+                                            />
+            
+                                            <label htmlFor="parcelamento">Parcelamento</label>
+                                            <select
+                                                name="parcelamento"
+                                                required
+                                                onChange={(e) => setInstallments(e.target.value)}
+                                            >
+                                                <option value="">Escolha o número de parcelas</option>
+                                                <option value="1x">1x</option>
+                                                <option value="2x">2x</option>
+                                                <option value="3x">3x</option>
+                                                <option value="4x">4x</option>
+                                                <option value="5x">5x</option>
+                                                <option value="6x">6x</option>
+                                                <option value="7x">7x</option>
+                                                <option value="8x">8x</option>
+                                                <option value="9x">9x</option>
+                                                <option value="10x">10x</option>
+                                                <option value="11x">11x</option>
+                                                <option value="12x">12x</option>
+                                            </select>
+            
+                                            <button type="submit">REVISAR SEU PEDIDO</button>
+                                        </form>
+                                    </Inputs>
+        
+                                :   <ClosedInputs>
+                                        <h2>Dados de Pagamento</h2>
+                                    </ClosedInputs>
+                                }
+                                
+                                
+                            </CheckoutInputs>
+                            <ReviewOrder>
+                                <div>
+                                    <h3>Revise seu Pedido</h3>
+                                    <OrderItems>
+                                    {products.length === 0 ? (
+                                        <p>Carregando produtos...</p>
+                                    ) : (
+                                        products.map((product) =>{
+                                            <OrderItem key={product._id}>
+                                                <img src={product.image}></img>
+                                                <div>
+                                                    <h4>{product.name}</h4>
+                                                    <p>Variação: {product.productVariation}</p>
+                                                    <p>Quantidade: {product.productQuantity}</p>
+                                                    <div>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                                                </div>
+                                            </OrderItem>
+                                        })
+                                    )}
+                                    </OrderItems>
+                                </div>
+                                <TotalOrder>
+                                    <div>
+                                        <h3>Total:</h3>
+                                        <h3>R${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h3>
+                                    </div>
+                                    <button disabled={botaoFinalizar} onClick={enviarPedido}>FINALIZAR PEDIDO</button>
+                                </TotalOrder>
+                            </ReviewOrder>
+                        </MainContent>
+                    </CheckoutDiv>
+        :
+            <PopupDiv>
+                <div>
+                <PopupLogin />
+                </div>
+            </PopupDiv>
+        }
 
-                <MainContent>
-                    <CheckoutInputs>
-                        {exibirEndereco ?
-                                <Inputs>
-                                    <h2>Endereço de Entrega</h2>
-                                    <form onSubmit={handleEndereco}>
-                                        <label htmlFor="remetente">Nome completo do remetente</label>
-                                        <input
-                                            name="remetente"
-                                            placeholder="Digite o nome completo aqui"
-                                            type="text"
-                                            required
-                                            onChange={(e) => setAddressName(e.target.value)}
-                                        />
-
-                                        <label htmlFor="cep">CEP</label>
-                                        <input
-                                            name="cep"
-                                            placeholder="Digite o número do seu CEP aqui"
-                                            type="text"
-                                            inputMode="numeric"
-                                            maxLength="9"
-                                            onInput={formatarCEP}
-                                            required
-                                            onChange={(e) => setCep(e.target.value)}
-                                        />
-
-                                        <label htmlFor="endereco">Endereço</label>
-                                        <input
-                                            name="endereco"
-                                            placeholder="Digite o seu endereço aqui"
-                                            type="text"
-                                            required
-                                            onChange={(e) => setAddress(e.target.value)}
-                                        />
-
-                                        <label htmlFor="complemento">Complemento (opcional)</label>
-                                        <input
-                                            name="complemento"
-                                            placeholder="Digite o complemento do seu endereço aqui"
-                                            type="text"
-                                            onChange={(e) => setAddressComplement(e.target.value)}
-                                        />
-
-                                        <label htmlFor="cidade">Cidade</label>
-                                        <input
-                                            name="cidade"
-                                            placeholder="Digite sua cidade aqui aqui"
-                                            type="text"
-                                            required
-                                            onChange={(e) => setCity(e.target.value)}
-                                        />
-
-                                        <label htmlFor="estado">Estado</label>
-                                        <select
-                                            name="estado"
-                                            required
-                                            onChange={(e) => setState(e.target.value)}
-                                        >
-                                            <option value="">Selecione seu estado</option>
-                                            <option value="AC">Acre</option>
-                                            <option value="AL">Alagoas</option>
-                                            <option value="AP">Amapá</option>
-                                            <option value="AM">Amazonas</option>
-                                            <option value="BA">Bahia</option>
-                                            <option value="CE">Ceará</option>
-                                            <option value="DF">Distrito Federal</option>
-                                            <option value="ES">Espírito Santo</option>
-                                            <option value="GO">Goiás</option>
-                                            <option value="MA">Maranhão</option>
-                                            <option value="MT">Mato Grosso</option>
-                                            <option value="MS">Mato Grosso do Sul</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PA">Pará</option>
-                                            <option value="PB">Paraíba</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="PE">Pernambuco</option>
-                                            <option value="PI">Piauí</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="RN">Rio Grande do Norte</option>
-                                            <option value="RS">Rio Grande do Sul</option>
-                                            <option value="RO">Rondônia</option>
-                                            <option value="RR">Roraima</option>
-                                            <option value="SC">Santa Catarina</option>
-                                            <option value="SP">São Paulo</option>
-                                            <option value="SE">Sergipe</option>
-                                            <option value="TO">Tocantins</option>
-                                        </select>
-
-                                        <button type="submit">SEGUIR PARA PAGAMENTO</button>
-                                    </form>
-                                </Inputs>
-
-                        :   <ClosedInputs>
-                                <h2>Endereço de Entrega</h2>
-                            </ClosedInputs>
-                        }
-                        
-                        {exibirPagamento ? 
-                            <Inputs>
-                                <h2>Dados de Pagamento</h2>
-                                <form onSubmit={handlePagamento}>
-                                    <label htmlFor="numerocartao">Número do cartão</label>
-                                    <input
-                                        name="numerocartao"
-                                        type="text"
-                                        required
-                                        inputMode="numeric"
-                                        pattern="[0-9\s]{13,19}"
-                                        autoComplete="cc-number"
-                                        onInput={formatarNumeroCartao}
-                                        maxLength="19"
-                                        placeholder="1234 5678 9123 4567"
-                                        onChange={(e) => setCreditCard(e.target.value)}
-                                    />
-    
-                                    <label htmlFor="nomecartao">Nome impresso no cartão</label>
-                                    <input
-                                        name="nomecartao"
-                                        placeholder="Digite o nome impresso no cartão"
-                                        type="text"
-                                        required
-                                        onChange={(e) => setCardOwner(e.target.value)}
-                                    />
-    
-                                    <label htmlFor="validade">Validade</label>
-                                    <input
-                                        name="validade"
-                                        placeholder="MM/AA"
-                                        onInput={formatarValidadeCartao}
-                                        type="text"
-                                        required
-                                        onChange={(e) => setCardExpiringDate(e.target.value)}
-                                    />
-    
-                                    <label htmlFor="cvv">Código de segurança (CVV)</label>
-                                    <input
-                                        name="cvv"
-                                        placeholder="123"
-                                        onInput={formatarCVVCartao}
-                                        maxLength="3"
-                                        type="number"
-                                        onChange={(e) => setCvv(e.target.value)}
-                                    />
-    
-                                    <label htmlFor="parcelamento">Parcelamento</label>
-                                    <select
-                                        name="parcelamento"
-                                        required
-                                        onChange={(e) => setInstallments(e.target.value)}
-                                    >
-                                        <option value="">Escolha o número de parcelas</option>
-                                        <option value="1x">1x</option>
-                                        <option value="2x">2x</option>
-                                        <option value="3x">3x</option>
-                                        <option value="4x">4x</option>
-                                        <option value="5x">5x</option>
-                                        <option value="6x">6x</option>
-                                        <option value="7x">7x</option>
-                                        <option value="8x">8x</option>
-                                        <option value="9x">9x</option>
-                                        <option value="10x">10x</option>
-                                        <option value="11x">11x</option>
-                                        <option value="12x">12x</option>
-                                    </select>
-    
-                                    <button type="submit">REVISAR SEU PEDIDO</button>
-                                </form>
-                            </Inputs>
-
-                        :   <ClosedInputs>
-                                <h2>Dados de Pagamento</h2>
-                            </ClosedInputs>
-                        }
-                        
-                        
-                    </CheckoutInputs>
-                    <ReviewOrder>
-                        <div>
-                            <h3>Revise seu Pedido</h3>
-                            <OrderItems>
-                            {products.length === 0 ? (
-                                <p>Carregando produtos...</p>
-                            ) : (
-                                products.map((product) =>{
-                                    <OrderItem key={product._id}>
-                                        <img src={product.image}></img>
-                                        <div>
-                                            <h4>{product.name}</h4>
-                                            <p>Variação: {product.productVariation}</p>
-                                            <p>Quantidade: {product.productQuantity}</p>
-                                            <div>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
-                                        </div>
-                                    </OrderItem>
-                                })
-                            )}
-                            </OrderItems>
-                        </div>
-                        <TotalOrder>
-                            <div>
-                                <h3>Total:</h3>
-                                <h3>R${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h3>
-                            </div>
-                            <button disabled={botaoFinalizar} onClick={enviarPedido}>FINALIZAR PEDIDO</button>
-                        </TotalOrder>
-                    </ReviewOrder>
-                </MainContent>
-            </CheckoutDiv>
         </>
     )
 }
@@ -540,5 +562,19 @@ const Inputs = styled.div`
         font-size: 16px;
         font-weight: 400;
         text-transform: uppercase;
+    }
+`
+const PopupDiv = styled.div`
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(217, 217, 217, 0.30);
+
+    div{
+        width: max-content;
+        height: max-content;
     }
 `
