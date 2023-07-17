@@ -32,6 +32,7 @@ const RodapeContainer = styled.div`
     align-items: center;
 
     h1 {
+        font-family: Ubuntu, sans-serif;
         color: #A1AEB7;
         font-weight: 400;
         font-size: 14px;

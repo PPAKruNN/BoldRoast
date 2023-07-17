@@ -7,8 +7,8 @@ export default function Product({product}){
             {product ? (
                 <>
                     <img src={product.image} alt={product.title} />
-                    <h2>{product.title}</h2>
-                    <p>{product.price}</p>
+                    <h2>{product.name}</h2>
+                    <p>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
                     <button>ADICIONAR AO CARRINHO</button>
                 </>
             ) : (
@@ -28,6 +28,7 @@ const ProductDiv = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 40px;
 
     gap: 10px;
     width: 22.5%;
@@ -60,7 +61,7 @@ const ProductDiv = styled.div`
     button {
         background-color: #000000;
         border-radius: 13px;
-        padding: 8px ;
+        padding: 16px 12px;
 
         width: 90%;
 

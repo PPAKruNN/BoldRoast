@@ -5,6 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import useForm from "../services/useForm";
 import AuthContext from "../context/AuthContext";
+import FixedMenu from "../components/Menu";
 
 
 export default function LoginPage() {
@@ -47,6 +48,8 @@ export default function LoginPage() {
   }
 
   return (
+    <>
+    <FixedMenu />
     <LoginContainer>
         <h1>Faça login para sua conta</h1>
       <div>
@@ -75,6 +78,7 @@ export default function LoginPage() {
   
       <span>Ainda não tem uma conta? <Link to="/register">Cadastre-se!</Link></span>
     </LoginContainer>
+    </>
   );
 }
 

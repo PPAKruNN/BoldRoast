@@ -5,6 +5,7 @@ import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
 import useForm from "../services/useForm";
 import axios from "axios";
+import FixedMenu from "../components/Menu";
 
 export default function RegisterPage() {
   const { form, changeForm } = useForm({ completeName: "", email: "", password: ""});
@@ -37,6 +38,8 @@ export default function RegisterPage() {
   }
 
   return (
+    <>
+    <FixedMenu />
     <ResgisterContainer>
         <h1>Crie a sua conta</h1>
 
@@ -76,6 +79,7 @@ export default function RegisterPage() {
 
       <span>Já tem uma conta?<Link to="/login"> Entre agora!</Link></span>
     </ResgisterContainer>
+    </>
   );
 }
 

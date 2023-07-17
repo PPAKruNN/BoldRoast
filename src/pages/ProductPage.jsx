@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import FixedMenu from '../components/Menu';
 
 export default function ProductPage() {
     const [ quantity, setQuantity ] = useState(1);
@@ -20,6 +21,8 @@ export default function ProductPage() {
     }
 
     return (
+        <>
+        <FixedMenu />
         <ProductPageContainer>
             <ProductContainer>
                 <ProductImage src="./src/images/image.png" />
@@ -63,6 +66,7 @@ export default function ProductPage() {
                 </ProductDescription>
             </ProductContainer>            
         </ProductPageContainer>
+        </>
     );
 }
 
