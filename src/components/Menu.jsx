@@ -3,25 +3,44 @@ import image from "../images/logoWhite.png"
 import text from "../images/textWhite.png"
 import icon1 from "../images/icon1.png"
 import icon2 from "../images/icon2.png"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import FixedCart from "./Cart"
+import { useContext } from "react"
+import CartContext from "../context/CartContext"
 
 export default function FixedMenu() {
 
-    const navigate = useNavigate(); 
+    const {openCart, setOpenCart} = useContext(CartContext);
+
+    function showCart(){
+        setOpenCart(true)
+
+        setTimeout(() => {
+            setOpenCart(false);
+        }, 3000);
+    }
 
     return (
         <Menu>
             <MenuContainer>
-                <ImageText onClick={() => navigate("/")}>
+                <Link to="/">
+                <ImageText>
                     <img src={image}></img>
                     <img src={text}></img>
                 </ImageText>
+                </Link>
 
-                <input placeholder="Pesquisar"/>
+                <Link to="/shop">
+                <p>IR PARA A LOJA</p>
+                </Link>
+                {/* <input placeholder="Pesquisar"/> */}
 
                 <Icons>
-                    <img src={icon1}></img>
-                    <img src={icon2}></img>
+                    <Link to="/login">
+                        <img src={icon1}></img>
+                    </Link>
+                    <img src={icon2} onClick={showCart}></img>
+                    {openCart && <FixedCart />}
                 </Icons>
             </MenuContainer>
         </Menu>
@@ -29,6 +48,7 @@ export default function FixedMenu() {
 }
 
 const Menu = styled.div`
+font-family: Ubuntu, sans-serif;
 height: 150px;
 width: auto;
 display: flex;
@@ -40,6 +60,10 @@ const MenuContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+        a{
+            color: #424B5A;
+            text-decoration: none;
+        }
 
     input{
         width: 337px;

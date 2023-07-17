@@ -18,11 +18,12 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [notes, setNotes] = useState("");
+  const [openCart, setOpenCart] = useState(false);
 
   return (
     <>
       <AuthContext.Provider value={{ token, setToken }}>
-      <CartContext.Provider value={{ products, setProducts, total, setTotal, notes, setNotes }}>
+      <CartContext.Provider value={{ products, setProducts, total, setTotal, notes, setNotes, openCart, setOpenCart }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage/>} />
