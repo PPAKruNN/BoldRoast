@@ -3,13 +3,16 @@ import image from "../images/logoWhite.png"
 import text from "../images/textWhite.png"
 import icon1 from "../images/icon1.png"
 import icon2 from "../images/icon2.png"
+import { useNavigate } from "react-router-dom"
 
 export default function FixedMenu() {
+
+    const navigate = useNavigate(); 
 
     return (
         <Menu>
             <MenuContainer>
-                <ImageText>
+                <ImageText onClick={() => navigate("/")}>
                     <img src={image}></img>
                     <img src={text}></img>
                 </ImageText>
@@ -57,6 +60,7 @@ const ImageText = styled.div`
 width: 200px;
 height: 105px;
 display: flex;
+cursor: pointer;
 ` 
 
 const Icons = styled.div`
