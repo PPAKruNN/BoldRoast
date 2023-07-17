@@ -100,7 +100,7 @@ export default function CheckoutPage(){
         const compra = {
             notes,
             products,
-            adressInfo:{ addressName,cep,address,addressComplement,city,state },
+            addressInfo:{ addressName,cep,address,addressComplement,city,state },
             paymentInfo:{ creditCard, cardOwner, cardExpiringDate, cvv, installments }
         }
         axios.post(`${import.meta.env.VITE_API_URL}/purchases`, compra, config)
