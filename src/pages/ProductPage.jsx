@@ -14,7 +14,7 @@ export default function ProductPage() {
     const [ product, setProduct ] = useState();
     const [ variationsArray, setVariationsArray] = useState([]);
 
-    const { products, setTotal, total } = useContext(CartContext);
+    const { products, setProducts, setTotal, total } = useContext(CartContext);
     const { token } = useContext(AuthContext);
 
     const incrementQuantity = () => {
@@ -46,11 +46,11 @@ export default function ProductPage() {
         setTotal(total + product.price);
        
         
-        products.push(currProd);
+        const newArr = products;
+        newArr.push(currProd);
+        setProducts(newArr);
 
-        console.log(products)
         if(token) axios.put(`${import.meta.env.VITE_API_URL}/cart`, { products }, {headers: {authorization: token}}); 
-        console.log(products);
     
     }
 
