@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import FixedMenu from '../components/Menu';
+import CartContext from '../context/CartContext';
+import AuthContext from '../context/AuthContext';
 
 export default function ProductPage() {
     const { id } = useParams();
@@ -11,6 +13,9 @@ export default function ProductPage() {
     const [ selected, setSelected ] = useState(1);
     const [ product, setProduct ] = useState();
     const [ variationsArray, setVariationsArray] = useState([]);
+
+    const { products, setTotal, total } = useContext(CartContext);
+    const { token } = useContext(AuthContext);
 
     const incrementQuantity = () => {
       setQuantity(quantity + 1);
@@ -28,11 +33,29 @@ export default function ProductPage() {
 
     const handleClickBuy = () => {
         alert('Produto adicionado ao carrinho');
+
+        const currProd = {
+            _id: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            description: product.description,
+            productVariation: variationsArray[selected - 1],
+            productQuantity: quantity,
+        }
+        setTotal(total + product.price);
+       
+        
+        products.push(currProd);
+
+        console.log(products)
+        if(token) axios.put(`${import.meta.env.VITE_API_URL}/cart`, { products }, {headers: {authorization: token}}); 
+        console.log(products);
+    
     }
 
     useEffect(() => {
         const getProducts = async() => {
-            console.log("chamou!")
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}`);
                 const newProduct = response.data;
