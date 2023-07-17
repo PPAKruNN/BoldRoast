@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 import CoffeMock from "../images/CoffeMock.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import AuthContext from "../context/AuthContext";
 
 
 export default function CheckoutPage(){
@@ -22,6 +23,8 @@ export default function CheckoutPage(){
     const [cvv, setCvv] = useState("");
     const [installments, setInstallments] = useState("");
 
+    const { token } = useContext(AuthContext);
+    const config = { headers: { Authorization:`Bearer ${token}` } }
 
     function formatarCEP(e){
         const input = e.target;
