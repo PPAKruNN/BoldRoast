@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function FixedCart() {
-    const {products, setProducts, total, setTotal } = useContext(CartContext);
+    const { products, setProducts, total, setTotal } = useContext(CartContext);
     const navigate = useNavigate();
 
     function navegarLoja(){
@@ -19,7 +19,7 @@ export default function FixedCart() {
 
     return (
         <>
-        {products.lenght === 0 ? (
+        {products.length != 0 ? (
             <ContainerCart>
             <h1>SEU CARRINHO</h1>
 
