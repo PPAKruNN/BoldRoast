@@ -14,17 +14,17 @@ export default function ProductPage() {
     const [ product, setProduct ] = useState();
     const [ variationsArray, setVariationsArray] = useState([]);
 
-    const { products, setProducts, setTotal, total } = useContext(CartContext);
+    const { products, setProducts, setTotal, total, openCart, setOpenCart } = useContext(CartContext);
     const { token } = useContext(AuthContext);
 
     const incrementQuantity = () => {
-      setQuantity(quantity + 1);
+        setQuantity(quantity + 1);
     };
-  
+
     const decrementQuantity = () => {
-      if (quantity > 1) {
-        setQuantity(quantity - 1);
-      }
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
     };
 
     const handleSelected = (e) => {
@@ -32,7 +32,6 @@ export default function ProductPage() {
     }
 
     const handleClickBuy = () => {
-        alert('Produto adicionado ao carrinho');
 
         const currProd = {
             _id: product._id,
@@ -76,7 +75,13 @@ export default function ProductPage() {
         getProducts();
     }, []);
     
-    
+    useEffect(() => {
+        setOpenCart(true);
+
+        setTimeout(() => {
+            setOpenCart(false);
+        }, 3000);
+    }, [products, setProducts]);
     
     return (
         <>

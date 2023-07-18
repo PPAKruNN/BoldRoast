@@ -118,9 +118,11 @@ export default function CheckoutPage(){
             addressInfo:{ addressName,cep,address,addressComplement,city,state },
             paymentInfo:{creditCard: formatedCC, cardOwner, cardExpiringDate, cvv, installments }
         }
+
+        console.log(compra);
         axios.post(`${import.meta.env.VITE_API_URL}/purchases`, compra, config)
             .then(() => {
-                alert("Recebemos seu pedido!");
+                alert("Recebemos seu pedido! Obrigada por escolher a Bold Roast.");
                 navigate('/');
             })
             .catch(error=>{
@@ -335,6 +337,7 @@ export default function CheckoutPage(){
                                         <p>Carregando produtos...</p>
                                     ) : (
                                         products.map((product) =>{
+                                            return(
                                             <OrderItem key={product._id}>
                                                 <img src={product.image}></img>
                                                 <div>
@@ -344,6 +347,7 @@ export default function CheckoutPage(){
                                                     <div>R${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
                                                 </div>
                                             </OrderItem>
+                                            )
                                         })
                                     )}
                                     </OrderItems>
