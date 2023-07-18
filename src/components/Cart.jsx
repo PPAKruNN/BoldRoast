@@ -24,6 +24,7 @@ export default function FixedCart() {
             <h1>SEU CARRINHO</h1>
 
             {products.map((product)=> {
+                return(
                 <ContainerItems key={product._id}>
                     <img src={product.image}></img>
 
@@ -34,6 +35,7 @@ export default function FixedCart() {
 
                     <img src={icon3}></img> 
                 </ContainerItems>
+                )
             })}
 
             <button onClick={navegarCheckout}>FINALIZAR PEDIDO</button>
@@ -91,11 +93,15 @@ button{
 `
 
 const ContainerItems = styled.div`
-width: 348px;
-height: 92px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+    width: 348px;
+    height: 92px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img{
+        max-width: 100px;
+        border-radius: 15px;
+    }
 `
 
 const ProductPrice = styled.div`
